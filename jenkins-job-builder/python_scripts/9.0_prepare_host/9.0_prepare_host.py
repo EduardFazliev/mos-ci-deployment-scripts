@@ -98,7 +98,28 @@ def get_args():
     return args.jenkins_server_link, args.ubuntubvt2_job_name
 
 
-def get_env_name_from_dospy():
+def erase_env(env):
+    try:
+        p = Popen('sudo dos.py erase {0}'.format(env),
+                  stderr=PIPE,
+                  stdout=PIPE,
+                  shell=True)
+    except Exception as e:
+        print 'Error while erasing environment {0}'.format(env)
+        print e
+        return 1
+    else:
+        out, error = p.communicate()
+        if error != '':
+            print 'Error while erasing env {0}'.format(env)
+            return 1
+        else:
+            print out
+            return 0
+
+
+def erase_all_except_required_env(req_env_name):
+    # Get list on environments
     try:
         p = Popen('sudo dos.py list', stderr=PIPE, stdout=PIPE, shell=True)
     except Exception as e:
@@ -111,7 +132,22 @@ def get_env_name_from_dospy():
         print 'Error while executing dos.py: {0}'.format(error)
         sys.exit(1)
 
+    # Create list of envs without system additional info
+    env_list = out.split('\n')
+    env_list.remove('NAME')
+    env_list.remove('----------------------------')
+    env_list.remove('K E Y S')
 
+    for env in env_list:
+        if env != req_env_name:
+            erase_env(env)
+            env_list.remove(env)
+
+    return env_list
+
+
+def check_if_req_snapshot_is_in_env(env, snapshot):
+    pass
 
 
 def main():
@@ -130,8 +166,15 @@ def main():
     iso_download_link = (
         get_iso_download_link_with_passed_ubuntubvt2(jenkins_server,
                                                      ubuntu_bvt2))
+    required_env_name = 'MOS_CI_{0}'.format(iso_download_link.split('/')[-1])
 
-    get_env_name_from_dospy()
+    # env_list is empty, if there is no required env
+    env_list = erase_all_except_required_env(required_env_name)
+
+    if not env_list:
+        sys.exit(0)
+    else:
+        check_if_req_snapshot_is_in_env(required_env_name, snapshot_name)
 
 if __name__ == '__main__':
     main()
