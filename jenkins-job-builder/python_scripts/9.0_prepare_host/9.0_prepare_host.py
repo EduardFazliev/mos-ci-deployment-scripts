@@ -134,9 +134,13 @@ def erase_all_except_required_env(req_env_name):
 
     # Create list of envs without system additional info
     env_list = out.split('\n')
-    env_list.remove('NAME')
-    env_list.remove('----------------------------')
-    env_list.remove('K E Y S')
+    try:
+        env_list.remove('NAME')
+        env_list.remove('----------------------------')
+        env_list.remove('k    e    y    s')
+        env_list.remove('---  ---  ---  ---')
+    except Exception as e:
+        print e
 
     for env in env_list:
         if env != req_env_name:
@@ -147,34 +151,77 @@ def erase_all_except_required_env(req_env_name):
 
 
 def check_if_req_snapshot_is_in_env(env, snapshot):
-    pass
+    try:
+        p = Popen('dos.py snapshot-list {0} | grep snapshot'.format(env),
+                  stdout=PIPE,
+                  stderr=PIPE,
+                  shell=True)
+    except Exception as e:
+        print "Error while executing command dos.py snapshot-list"
+        print e
+        return 1
+    else:
+        out, error = p.communicate()
+        if error != '':
+            print "Error while executing command " \
+                  "dos.py snapshot-list: {0}".format(error)
+            return 1
+        else:
+            print out
+            if out == '':
+                return 1
+            else:
+                return 0
+
+
+def wget_iso(dir, link):
+    wget_command = 'sudo wget {0} -P {1}'.format(link, dir)
+    print 'Executing wget command: {}'.format(wget_command)
+    p = Popen(wget_command, stderr=PIPE, stdout=PIPE, shell=True)
+    while True:
+        line = p.stderr.readline()
+        if not line:
+            break
+        print line
+
+    out, err = p.communicate()
+    if out:
+        print 'wget command output is: {0}'.format(out)
 
 
 def main():
     iso_dir = os.environ.get('ISO_DIR', '/var/www/fuelweb-iso')
     snapshot_name = os.environ.get('SNAPSHOT_NAME', 'ha_deploy_VLAN_CINDER')
-
-    # environment name is combination of some const string,
-    # like MOS_CI_ and name of iso file
-    env_name = 'MOS_CI_{0}'.format(get_iso_name(iso_dir))
-
     # Get link to jenkins build, that contain iso download link
     # and test results
-    jenkins_server, ubuntu_bvt2 = get_args()
+    jenkins_server = os.environ.get('JENKINS_SERVER',
+                                    'https://product-ci.infra.mirantis.net')
+    ubuntu_bvt2 =os.environ.get('BVT2_JOB_NAME', '9.0.main.ubuntu.bvt_2')
 
-    # Get last iso
+    # Get last iso download link
     iso_download_link = (
         get_iso_download_link_with_passed_ubuntubvt2(jenkins_server,
                                                      ubuntu_bvt2))
-    required_env_name = 'MOS_CI_{0}'.format(iso_download_link.split('/')[-1])
+    # environment name is combination of some const string,
+    # like MOS_CI_ and name of iso file
+    iso_name = iso_download_link.split('/')[-1]
+    required_env_name = 'MOS_CI_{0}'.format(iso_name)
 
     # env_list is empty, if there is no required env
     env_list = erase_all_except_required_env(required_env_name)
 
-    if not env_list:
+    if not env_list or env_list == '':
+        # if env there is no required env, then download iso and exit
+        wget_iso(iso_dir, iso_download_link)
         sys.exit(0)
     else:
-        check_if_req_snapshot_is_in_env(required_env_name, snapshot_name)
+        # if env_list is not empty, then we already have such env
+        # and we can use it's snapshots, but we must check
+        # that there is an iso in iso_path
+        if os.path.isfile(os.path.join(iso_dir, iso_name)):
+            sys.exit(0)
+        else:
+            wget_iso(iso_dir, iso_download_link)
 
 if __name__ == '__main__':
     main()
