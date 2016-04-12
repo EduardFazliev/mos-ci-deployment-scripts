@@ -235,7 +235,7 @@ template:
   release: ubuntu
   settings:
    components:
-    sahara: true
+    sahara: false
     murano: false
     ceilometer: false
     ironic: false
