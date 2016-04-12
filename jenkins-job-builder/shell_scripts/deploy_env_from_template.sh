@@ -25,6 +25,7 @@ sudo apt-get install python-virtualenv || true
 ISO_NAME=`ls "$ISO_DIR"`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+export ISO_PATH="$ISO_DIR"/"$ISO_NAME"
 
 V_ENV_DIR=venv
 GROUP_NAME='3_controllers_2compute_neutron_env'
