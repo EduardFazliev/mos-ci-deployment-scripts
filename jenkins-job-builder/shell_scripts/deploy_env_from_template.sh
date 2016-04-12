@@ -73,9 +73,9 @@ if [ ${IRONIC_ENABLE} == 'true' ]; then
     patch_fuel_qa ironic.patch
 fi
 
-if [[ ${SNAPSHOT_NAME} == *"DVR"* ]] || \
-   [[ ${SNAPSHOT_NAME} == *"L2_POP"* ]] || \
-   [[ ${SNAPSHOT_NAME} == *"L3_HA"* ]]; then
+if [[ "${SNAPSHOT_NAME}" == *"DVR"* ]] || \
+   [[ "${SNAPSHOT_NAME}" == *"L2_POP"* ]] || \
+   [[ "${SNAPSHOT_NAME}" == *"L3_HA"* ]]; then
     patch_fuel_qa DVR_L2_pop_HA.patch
 fi
 
