@@ -1,17 +1,15 @@
 - job:
+    name: (9.0)create_param_environment_from_template
     parameters:
+      # - string:
+      #     name: FUELQA_TEMPLATE_NAME
+      #     default:
       - string:
           name: ISO_DIR
           default: "/var/www/fuelweb-iso"
       - string:
-          name: DVR_ENABLE
-          default: "FALSE"
-      - string:
-          name: L3_HA_ENABLE
-          default: "FALSE"
-      - string:
-          name: L2_POP_ENABLE
-          default: "FALSE"
+          name: INTERFACE_MODEL
+          default: "virtio"
       - string:
           name: DISABLE_SSL
           default: "TRUE"
@@ -27,78 +25,29 @@
       - string:
           name: DEPLOYMENT_TIMEOUT
           default: "10000"
+###############################
+##### Temporary for tests #####
+###############################
       - string:
-          name: INTERFACE_MODEL
-          default: "virtio"
-      - string:
-          name: KVM_USE
-          default: "TRUE"
-      - string:
-          name: SEPARATE_SERVICES_COUNT
-          default: "0"
-      - string:
-          name: SEPARATE_SERVICE_RABBIT_ENABLE
-          default: "FALSE"
-      - string:
-          name: SEPARATE_SERVICE_DB_ENABLE
-          default: "FALSE"
-      - string:
-          name: SEPARATE_SERVICE_KEYSTONE_ENABLE
-          default: "FALSE"
-      - string:
-          name: SEPARATE_SERVICE_RABBIT_PLUGIN_PATH
-          default: "/var/www/detach-plugins"
-      - string:
-          name: SEPARATE_SERVICE_DB_PLUGIN_PATH
-          default: "/var/www/detach-plugins"
-      - string:
-          name: SEPARATE_SERVICE_KEYSTONE_PLUGIN_PATH
-          default: "/var/www/detach-plugins"
+          name: SNAPSHOT_NAME
+          default: ha_deploy_VLAN_CINDER
+###############################
 
-    name: (9.0)create_param_environment_from_template
     wrappers:
       - build-name:
           name: ${BUILD_NUMBER}.${FILE,path="build-name-setter.info"}
       - ansicolor
+
     builders:
         - shell: |
-            echo `hostname`
-            ISO_NAME=`ls "$ISO_DIR"`
-            ENV_NAME=MOS_CI_"$ISO_NAME"
-
-            if [ "$MOS_VERSION" == 'mitaka' ] || [ "$MOS_VERSION" == 'kilo' ] ;
-            then
-            ISO_ID=`echo "$ISO_NAME" | cut -f4 -d-`
-            else
-            ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+            set -e
+            ##### if template name is empty, then stop deploy process #####
+            if [[ -z "$FUELQA_TEMPLATE_NAME" ]]; then
+            exit 1
             fi
 
-            ########################################
-            ##### Applying patches for fuel-qa #####
-            ########################################
-
-            if [ ${IRONIC_ENABLE} == 'true' ]; then
-                patch_fuel_qa ironic.patch
-            fi
-
-            if [ ${SNAPSHOT_NAME} == *"DVR"*' ] || [ ${SNAPSHOT_NAME} == *"L2_POP"*' ] \
-            || [ ${SNAPSHOT_NAME} == *"L3_HA"*' ];
-            then
-                patch_fuel_qa DVR_L2_pop_HA.patch
-            fi
-
-            if [[ ${INTERFACE_MODEL} == 'virtio' ]]; then
-                # Virtio network interfaces have names eth0..eth5
-                # (rather than default names - enp0s3..enp0s8)
-                patch_fuel_qa virtio.patch
-                for i in {0..5}; do
-                    export IFACE_$i=eth$i
-                done
-            fi
-
-            if [[ ${NOVA_QUOTAS_ENABLED} == 'TRUE' ]]; then
-                patch_fuel_qa nova_quotas.patch
-            fi
+        - shell:
+          !include-raw: ../shell_scripts/deploy_env_from_template.sh
 
     project-type: freestyle
     defaults: global
