@@ -27,8 +27,12 @@ ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
 
 V_ENV_DIR=venv
+GROUP_NAME='3_controllers_2compute_neutron_env'
+FUELQA_TEMPLATE_NAME='3_controllers_2compute_neutron_env.yaml'
+wget --output-document="$FUELQA_TEMPLATE_NAME" \
+     https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/deploy_templates/Sahara-VLAN-2comp-3contr.yaml
 
-export ENV_NAME="MOS_CI_$SNAPSHOT_NAME"
+export ENV_NAME="MOS_CI_$ISO_NAME"
 export USE_KVM="TRUE"
 
 echo "Env name:         ${ENV_NAME}"
@@ -86,3 +90,6 @@ fi
 if [[ ${NOVA_QUOTAS_ENABLED} == 'TRUE' ]]; then
     patch_fuel_qa nova_quotas.patch
 fi
+
+##### Running fuel-qa #####
+./utils/jenkins/system_tests.sh -k -K -j fuelweb_test -t test -V ${V_ENV_DIR} -w $(pwd) -o --group="system_test.deploy_env($GROUP_NAME)"

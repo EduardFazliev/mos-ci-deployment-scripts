@@ -39,15 +39,15 @@
       - ansicolor
 
     builders:
-        - shell: |
-            set -e
-            ##### if template name is empty, then stop deploy process #####
-            if [[ -z "$FUELQA_TEMPLATE_NAME" ]]; then
-            exit 1
-            fi
+        # - shell: |
+        #     set -e
+        #     ##### if template name is empty, then stop deploy process #####
+        #     if [[ -z "$FUELQA_TEMPLATE_NAME" ]]; then
+        #     exit 1
+        #     fi
 
         - shell:
-          !include-raw: ../shell_scripts/deploy_env_from_template.sh
+            !include-raw: ../shell_scripts/deploy_env_from_template.sh
 
     project-type: freestyle
     defaults: global
