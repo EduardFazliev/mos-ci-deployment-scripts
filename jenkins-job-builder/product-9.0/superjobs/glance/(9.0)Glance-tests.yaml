@@ -1,5 +1,5 @@
 - job:
-    name: 9.0-glance_tests
+    name: (9.0)Glance_tests
     wrappers:
       - build-name:
           name: ${BUILD_NUMBER}.${FILE,path="build-name-setter.info"}
