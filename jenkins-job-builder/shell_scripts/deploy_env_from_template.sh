@@ -27,7 +27,7 @@ ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
 export ISO_PATH="$ISO_DIR"/"$ISO_NAME"
 
-V_ENV_DIR=venv
+V_ENV_DIR="`pwd`/fuel-devops-venv"
 GROUP_NAME='3_controllers_2compute_neutron_env'
 FUELQA_TEMPLATE_NAME='3_controllers_2compute_neutron_env.yaml'
 wget --output-document="$FUELQA_TEMPLATE_NAME" \
