@@ -37,8 +37,7 @@ if [ ! -f "$ISO_PATH" ]; then
 fi
 
 PWD=$(pwd)
-
-CONFIG_PATH=${1:?You should pass a valid path to Yaml tempate as first argument}
+#CONFIG_PATH=${1:?You should pass a valid path to Yaml tempate as first argument}
 
 if [ ! -f "$CONFIG_PATH" ]; then
     echo "$CONFIG_PATH is not exists or not a regular file"
