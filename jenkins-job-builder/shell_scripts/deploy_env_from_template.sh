@@ -1,96 +1,126 @@
-##########################
-#### Functions block #####
-##########################
+#!/usr/bin/env bash
+
+# This script deploy MirantisOpenStak from templates
+
+
 patch_fuel_qa(){
     # Check and apply patch to fuel_qa
     set +e
+    pushd $PWD/fuel-qa
     file_name=$1
     patch_file=../fuel_qa_patches/$file_name
     echo "Check for patch $file_name"
     git apply --check $patch_file 2> /dev/null
     if [ $? -eq 0 ]; then
-    echo "Applying patch $file_name"
-    git apply $patch_file
+        echo "Applying patch $file_name"
+        git apply $patch_file
     fi
+    popd
     set -e
 }
-###############################
-##### Functions block end #####
-###############################
 
-##### Install required components #####
-sudo apt-get install python-virtualenv || true
+# exit from shell if error happens
+set -e
 
-##### Define standart parameters #####
-ISO_NAME=`ls "$ISO_DIR"`
-ENV_NAME=MOS_CI_"$ISO_NAME"
-ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
-export ISO_PATH="$ISO_DIR"/"$ISO_NAME"
+# Hide trace on jenkins
+if [ -z "$JOB_NAME" ]; then
+    set -o xtrace
+fi
 
-V_ENV_DIR="`pwd`/fuel-devops-venv"
-GROUP_NAME='3_controllers_2compute_neutron_env'
-FUELQA_TEMPLATE_NAME='3_controllers_2compute_neutron_env.yaml'
-wget --output-document="$FUELQA_TEMPLATE_NAME" \
-     https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/deploy_templates/Sahara-VLAN-2comp-3contr.yaml
+if [ -z "$ISO_PATH" ]; then
+    echo "Please download ISO and define env variable ISO_PATH"
+    exit 1
+fi
+if [ ! -f "$ISO_PATH" ]; then
+    echo "$ISO_PATH is not exists or not a regular file"
+    exit 1
+fi
 
-export ENV_NAME="MOS_CI_$ISO_NAME"
-export USE_KVM="TRUE"
+PWD=$(pwd)
+
+CONFIG_PATH=${1:?You should pass a valid path to Yaml tempate as first argument}
+
+if [ ! -f "$CONFIG_PATH" ]; then
+    echo "$CONFIG_PATH is not exists or not a regular file"
+    exit 1
+fi
+CONFIG_FOLDER=$(basename $(dirname $CONFIG_PATH))
+CONFIG_FILE=$(basename $CONFIG_PATH)
+CONFIG_NAME="${CONFIG_FILE%.*}"
+
+SNAPSHOT_NAME="ha_deploy_"$CONFIG_FOLDER"_"$CONFIG_NAME
+echo "$SNAPSHOT_NAME" > "$ENV_INJECT_PATH"
+
+# Set fuel QA version
+# https://github.com/openstack/fuel-qa/branches
+FUEL_QA_VER=${FUEL_QA_VER:-'master'}
+
+V_ENV_DIR="$(pwd)/fuel-devops-venv"
+
+# set ENV_NAME if it is not defined
+ENV_NAME=${ENV_NAME:-"$CONFIG_FOLDER"_"$CONFIG_NAME"_"$RANDOM"}
+DISABLE_SSL=${DISABLE_SSL:-TRUE}
+KVM_USE=${KVM_USE:-true}
+INTERFACE_MODEL=${INTERFACE_MODEL:-virtio}
+PLUGINS_CONFIG_PATH=${PLUGINS_CONFIG_PATH:-$(pwd)/plugins.yaml}
+# more time can be required to deploy env
+DEPLOYMENT_TIMEOUT=${DEPLOYMENT_TIMEOUT:-10000}
+
+export ENV_NAME DISABLE_SSL KVM_USE INTERFACE_MODEL PLUGINS_CONFIG_PATH DEPLOYMENT_TIMEOUT
 
 echo "Env name:         ${ENV_NAME}"
 echo "Snapshot name:    ${SNAPSHOT_NAME}"
 echo "Fuel QA branch:   ${FUEL_QA_VER}"
 echo ""
 
-##### Creating virtualenv for fuel-qa #####
-virtualenv --no-site-packages ${V_ENV_DIR}
+# Check if folder for virtual env exist
+if [ ! -d "${V_ENV_DIR}" ]; then
+    virtualenv --no-site-packages ${V_ENV_DIR}
+fi
 
-. ${V_ENV_DIR}/bin/activate
+source ${V_ENV_DIR}/bin/activate
 pip install -U pip
 
-git clone -b "${FUEL_QA_VER}" https://github.com/openstack/fuel-qa
+# Check if fuel-qa folder exist
+if [ ! -d fuel-qa ]; then
+    git clone -b "${FUEL_QA_VER}" https://github.com/openstack/fuel-qa
+else
+    pushd fuel-qa
+    git clean -f -d -x
+    git checkout -- *
+    git checkout "${FUEL_QA_VER}"
+    git reset --hard
+    git pull
+    popd
+fi
+
+patch_fuel_qa qos.patch
 
 pip install -r fuel-qa/fuelweb_test/requirements.txt --upgrade
-# https://bugs.launchpad.net/oslo.service/+bug/1525992 workaround
-pip uninstall -y python-neutronclient
-pip install 'python-neutronclient<4.0.0'
 
-# django-admin.py syncdb --settings=devops.settings
-# django-admin.py migrate devops --settings=devops.settings
+django-admin.py syncdb --settings=devops.settings
+django-admin.py migrate devops --settings=devops.settings
 
-cp __init__.py fuel-qa/system_test/
-cp deploy_env.py fuel-qa/system_test/tests/
-# cp mos_tests.yaml fuel-qa/system_test/tests_templates/devops_configs/
-cp ${FUELQA_TEMPLATE_NAME} fuel-qa/system_test/tests_templates/tests_configs
+
+cp test_deploy_env.py fuel-qa/system_test/tests/
+cp -r templates/* fuel-qa/system_test/tests_templates/
+cp $CONFIG_PATH fuel-qa/system_test/tests_templates/tests_configs/
 
 cd fuel-qa
 
 
-########################################
-##### Applying patches for fuel-qa #####
-########################################
-
-if [ ${IRONIC_ENABLE} == 'true' ]; then
-    patch_fuel_qa ironic.patch
-fi
-
-if [[ "${SNAPSHOT_NAME}" == *"DVR"* ]] || \
-   [[ "${SNAPSHOT_NAME}" == *"L2_POP"* ]] || \
-   [[ "${SNAPSHOT_NAME}" == *"L3_HA"* ]]; then
-    patch_fuel_qa DVR_L2_pop_HA.patch
-fi
-
-if [[ ${INTERFACE_MODEL} == 'virtio' ]]; then
+if [ "${INTERFACE_MODEL}" == 'virtio' ]; then
     # Virtio network interfaces have names eth0..eth5
     # (rather than default names - enp0s3..enp0s8)
-    patch_fuel_qa virtio.patch
     for i in {0..5}; do
         export IFACE_$i=eth$i
     done
 fi
 
-if [[ ${NOVA_QUOTAS_ENABLED} == 'TRUE' ]]; then
-    patch_fuel_qa nova_quotas.patch
-fi
+# create new environment
+./run_system_test.py run 'system_test.deploy_env' --with-config $CONFIG_NAME
 
-##### Running fuel-qa #####
-./utils/jenkins/system_tests.sh -k -K -j fuelweb_test -t test -V ${V_ENV_DIR} -w $(pwd) -o --group="system_test.deploy_env($GROUP_NAME)"
+# make snapshot if deployment is successful
+dos.py suspend ${ENV_NAME}
+dos.py snapshot ${ENV_NAME} ${SNAPSHOT_NAME}
+dos.py resume ${ENV_NAME}

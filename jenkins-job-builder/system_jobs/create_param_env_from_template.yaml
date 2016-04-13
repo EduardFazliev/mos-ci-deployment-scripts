@@ -1,37 +1,6 @@
 - job:
     name: (9.0)create_param_environment_from_template
-    parameters:
-      # - string:
-      #     name: FUELQA_TEMPLATE_NAME
-      #     default:
-      - string:
-          name: ISO_DIR
-          default: "/var/www/fuelweb-iso"
-      - string:
-          name: INTERFACE_MODEL
-          default: "virtio"
-      - string:
-          name: DISABLE_SSL
-          default: "TRUE"
-      - string:
-          name: FUEL_DEV_VER
-          default: "2.9.19"
-      - string:
-          name: FUEL_QA_VER
-          default: "master"
-      - string:
-          name: NOVA_QUOTAS_ENABLED
-          default: "FALSE"
-      - string:
-          name: DEPLOYMENT_TIMEOUT
-          default: "10000"
-###############################
-##### Temporary for tests #####
-###############################
-      - string:
-          name: SNAPSHOT_NAME
-          default: ha_deploy_VLAN_CINDER
-###############################
+
 
     wrappers:
       - build-name:
@@ -39,24 +8,29 @@
       - ansicolor
 
     builders:
-        # - shell: |
-        #     set -e
-        #     ##### if template name is empty, then stop deploy process #####
-        #     if [[ -z "$FUELQA_TEMPLATE_NAME" ]]; then
-        #     exit 1
-        #     fi
+        - shell: |
+            ISO_NAME=`ls "$ISO_DIR"`
+            ENV_NAME=MOS_CI_"$ISO_NAME"
+            ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+            ISO_PATH="{$ISO_DIR}/{$ISO_NAME}"
+
+            echo "ENV_NAME=$ENV_NAME" > "$ENV_INJECT_PATH"
+            echo "ISO_ID=$ISO_ID" >> "$ENV_INJECT_PATH"
+            echo "ISO_PATH=$ISO_PATH" >> "$ENV_INJECT_PATH"
+
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
 
         - shell:
             !include-raw: ../shell_scripts/deploy_env_from_template.sh
 
     project-type: freestyle
     defaults: global
-    node: Slave-srv134
     scm:
-       - mos-ci-deployment-scripts
+       - 9.0-mos-ci-deployment-scripts
     description: 'Create environment with parameters, specified by PARAM string.'
     disabled: false
-    display-name: 'Create Parameterized Environment'
+    display-name: '(9.0)Create Parameterized Environment From Template'
     concurrent: true
     browser: githubweb
     retry-count: 3
