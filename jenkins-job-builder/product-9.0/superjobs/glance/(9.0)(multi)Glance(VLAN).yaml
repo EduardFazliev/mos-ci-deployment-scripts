@@ -1,5 +1,5 @@
 - job:
-    name: (9.0)(multi)Glance(Ceph)
+    name: (9.0)(multi)Glance(VLAN)
     project-type: multijob
 
     parameters:
@@ -99,9 +99,9 @@
 
     defaults: global
     node: Slave-srv96
-    description: 'Glance tests(Ceph)'
+    description: 'Glance tests(VLAN)'
     disabled: false
-    display-name: '(9.0)(multi)Glance Tests(Ceph)'
+    display-name: '(9.0)(multi)Glance Tests(VLAN)'
     concurrent: false
     retry-count: 3
     logrotate:

@@ -32,7 +32,7 @@
             default: "10000"
         - string:
             name: CONFIG_PATH
-            default: "./templates/glance/swift.yaml"
+            default: "./templates/glance/ceph.yaml"
 
         # TestRail Reporter parameters
         - string:
