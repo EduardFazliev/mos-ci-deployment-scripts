@@ -39,7 +39,7 @@
 
     project-type: freestyle
     defaults: global
-    node: Slave-srv150
+    node: Slave-srv98
     description: 'VLAN TEMPEST tests'
     disabled: false
     display-name: 'superjob-9.0-SAHARA_1contr_1compute'
