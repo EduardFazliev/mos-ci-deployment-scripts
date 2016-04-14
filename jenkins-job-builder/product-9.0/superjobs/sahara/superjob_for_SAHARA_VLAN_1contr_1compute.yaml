@@ -41,7 +41,7 @@
     defaults: global
     node: Slave-srv150
     description: 'VLAN TEMPEST tests'
-    disabled: true
+    disabled: false
     display-name: 'superjob-9.0-SAHARA_1contr_1compute'
     concurrent: false
     retry-count: 3
