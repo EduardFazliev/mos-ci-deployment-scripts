@@ -36,10 +36,13 @@
             SNAPSHOT_NAME=ha_deploy_VLAN_SAHARA_CINDER
             REPORT_PREFIX=/srv/jenkins/sahara
             MOS_VERSION=all
+    triggers:
+      - timed: '0 6 * * *'
 
     project-type: freestyle
     defaults: global
-    node: Slave-srv98
+    #node: Slave-srv98
+    node: Slave-srv150
     description: 'VLAN TEMPEST tests'
     disabled: false
     display-name: 'superjob-9.0-SAHARA_1contr_1compute'
