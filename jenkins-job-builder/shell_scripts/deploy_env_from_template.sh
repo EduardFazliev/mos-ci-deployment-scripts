@@ -48,7 +48,7 @@ CONFIG_FILE=$(basename $CONFIG_PATH)
 CONFIG_NAME="${CONFIG_FILE%.*}"
 
 SNAPSHOT_NAME="ha_deploy_"$CONFIG_FOLDER"_"$CONFIG_NAME
-echo "$SNAPSHOT_NAME" > "$ENV_INJECT_PATH"
+echo "SNAPSHOT_NAME=${SNAPSHOT_NAME}" > "$ENV_INJECT_PATH"
 
 # Set fuel QA version
 # https://github.com/openstack/fuel-qa/branches
