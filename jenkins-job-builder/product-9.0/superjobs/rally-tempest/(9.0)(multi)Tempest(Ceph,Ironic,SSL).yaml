@@ -124,8 +124,6 @@
                 node-label-name: Slave-7775
                 abort-all-job: true
 
-
-
       - multijob:
           name: Run_Tempest_API_tests
           condition: COMPLETED
@@ -140,7 +138,7 @@
                 node-label-name: Slave-7775
                 abort-all-job: true
       - multijob:
-          name: Report To TestRail
+          name: Report To TestRail(api)
           condition: COMPLETED
           projects:
               - name: (for_multi)testrail_reporter
@@ -167,7 +165,7 @@
                 node-label-name: Slave-7775
                 abort-all-job: true
       - multijob:
-          name: Report To TestRail
+          name: Report To TestRail(scenario)
           condition: COMPLETED
           projects:
               - name: (for_multi)testrail_reporter

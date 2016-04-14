@@ -31,7 +31,7 @@
             ##### Generation Report Path for copying report files #####
             REPORT_PATH="$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME"
             echo "BUILD_URL=$BUILD_URL" >> "$ENV_INJECT_PATH"
-            # echo "REPORT_PATH=$REPORT_PATH" >> "$ENV_INJECT_PATH"
+            echo "REPORT_PATH=$REPORT_PATH" >> "$ENV_INJECT_PATH"
             echo "$REPORT_PATH" > ./param.pm
 
             ##### Workaround for rally docker files #####

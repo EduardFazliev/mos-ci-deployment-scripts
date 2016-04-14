@@ -121,8 +121,6 @@
                 node-label-name: Slave-srv139
                 abort-all-job: true
 
-
-
       - multijob:
           name: Run_Tempest_API_tests
           condition: COMPLETED
@@ -137,7 +135,7 @@
                 node-label-name: Slave-srv139
                 abort-all-job: true
       - multijob:
-          name: Report To TestRail
+          name: Report To TestRail(api)
           condition: COMPLETED
           projects:
               - name: (for_multi)testrail_reporter
@@ -149,7 +147,6 @@
                 node-label: Slave-srv139
                 node-label-name: Slave-srv139
                 abort-all-job: true
-
 
       - multijob:
           name: Run_Tempest_Scenario_tests
@@ -164,7 +161,7 @@
                 node-label-name: Slave-srv139
                 abort-all-job: true
       - multijob:
-          name: Report To TestRail
+          name: Report To TestRail(api)
           condition: COMPLETED
           projects:
               - name: (for_multi)testrail_reporter
@@ -176,7 +173,6 @@
                 node-label: Slave-srv139
                 node-label-name: Slave-srv139
                 abort-all-job: true
-
 
     triggers:
         - timed: "50 20 * * *"
