@@ -14,7 +14,7 @@
           default: '/srv/jenkins/sahara'
       - string:
           name: GLANCE_IMAGES
-          default: '/home/jenkins/sahara-images/'
+          default: '/home/jenkins/sahara-images'
     builders:
         - shell: |
             set +e
