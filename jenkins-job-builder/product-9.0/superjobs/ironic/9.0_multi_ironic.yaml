@@ -62,7 +62,8 @@
 
     builders:
       - shell:
-          !include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          !include-raw: ../../../shell_scripts/erase_all_envs.sh
       - multijob:
           name: Deploy_Env
           condition: COMPLETED
@@ -70,8 +71,8 @@
               - name: (9.0)create_param_environment_from_template
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv98
-                node-label-name: Slave-srv98
+                node-label: Slave-srv137
+                node-label-name: Slave-srv137
                 abort-all-job: true
       - multijob:
           name: Run_Ironic_Tests
@@ -80,8 +81,8 @@
               - name: 9.0_ironic_tests
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv98
-                node-label-name: Slave-srv98
+                node-label: Slave-srv137
+                node-label-name: Slave-srv137
                 abort-all-job: true
       - multijob:
           name: Report To TestRail
@@ -90,15 +91,15 @@
               - name: (for_multi)testrail_reporter
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv98
-                node-label-name: Slave-srv98
+                node-label: Slave-srv137
+                node-label-name: Slave-srv137
                 abort-all-job: true
 
     triggers:
-        - timed: "50 20 * * *"
+        - timed: "0 6 * * *"
 
     defaults: global
-    node: Slave-srv98
+    node: Slave-srv137
     description: 'Ironic Tests'
     disabled: false
     display-name: '9.0_multi_Ironic_Tests'
