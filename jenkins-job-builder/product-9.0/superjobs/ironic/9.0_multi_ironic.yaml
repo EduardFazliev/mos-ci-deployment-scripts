@@ -100,7 +100,7 @@
     defaults: global
     node: Slave-srv98
     description: 'Ironic Tests'
-    disabled: true
+    disabled: false
     display-name: '9.0_multi_Ironic_Tests'
     concurrent: false
     retry-count: 3
