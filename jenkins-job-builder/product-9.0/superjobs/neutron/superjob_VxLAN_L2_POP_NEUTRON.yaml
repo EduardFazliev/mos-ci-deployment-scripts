@@ -2,7 +2,8 @@
     name: 9.0-superjob_for_VxLAN_L2_POP_NEUTRON-mitaka
     builders:
       - shell:
-          !include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          !include-raw: ../../../shell_scripts/erase_all_envs.sh
       - trigger-builds:
         - project: '9.0_create_param_environment'
           same-node: true
@@ -22,7 +23,7 @@
           same-node: true
           block: true
           block-thresholds:
-            build-step-failure-threshold: 'never'    
+            build-step-failure-threshold: 'never'
           predefined-parameters: |
             SNAPSHOT_NAME=ha_deploy_VxLAN_L2_POP_CINDER
             MOS_VERSION=all
@@ -39,10 +40,12 @@
             SUITE=[9.0][MOSQA] Automated Cloud Testing
 
     triggers:
-        - timed: "50 20 * * *"
+        #- timed: "50 20 * * *"
+        - timed: "0 6 * * *"
     project-type: freestyle
     defaults: global
-    node: Slave-srv134
+    #node: Slave-srv134
+    node: Slave-srv131
     description: 'VxLAN+L2_POP NEUTRON tests'
     disabled: false
     display-name: '9.0-NEUTRON:VxLAN+L2_POP'
