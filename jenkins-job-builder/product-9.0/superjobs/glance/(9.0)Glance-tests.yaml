@@ -19,7 +19,7 @@
             ENV_NAME=MOS_CI_"$ISO_NAME"
 
             REPORT_PATH="$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME"
-            echo "BUILD_URL=$BUILD_URL" >> "$ENV_INJECT_PATH"
+            echo "BUILD=$BUILD_URL" >> "$ENV_INJECT_PATH"
             echo "REPORT_PATH=$REPORT_PATH" >> "$ENV_INJECT_PATH"
             echo "$REPORT_PATH" > ./param.pm
 
