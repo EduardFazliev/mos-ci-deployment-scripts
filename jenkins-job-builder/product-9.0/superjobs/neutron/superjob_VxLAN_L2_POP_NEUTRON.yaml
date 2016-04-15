@@ -41,7 +41,7 @@
 
     triggers:
         #- timed: "50 20 * * *"
-        - timed: "0 6 * * *"
+        - timed: "30 5 * * *"
     project-type: freestyle
     defaults: global
     #node: Slave-srv134
