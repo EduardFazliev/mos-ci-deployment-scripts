@@ -1,5 +1,5 @@
 - job:
-    name: (9.0)(multi)Tempest(Ceph,SSL)
+    name: 9.0-multi-Tempest-Ceph_SSL
     project-type: multijob
 
     parameters:
@@ -60,7 +60,7 @@
             default: "1"
         - string:
             name: COMPUTES_COUNT
-            default: "1"
+            default: "2"
         - string:
             name: SLAVE_NODE_CPU
             default: "2"
@@ -83,6 +83,16 @@
         - string:
             name: REPORT_FILE
             default: "verification.xml"
+        - string:
+            name: REPORT_PREFIX
+            default: "/srv/jenkins/rally-tempest"
+        - string:
+            name: CEPH_SKIP_TESTS
+            default: "TRUE"
+        - string:
+            name: TEST_GROUP
+            default: "Tempest,Ceph,Ironic,SSL"
+
         - string:
             name: SUITE
             default: "[9.0][MOSQA] Tempest 9.0"
@@ -125,59 +135,25 @@
                 abort-all-job: true
 
       - multijob:
-          name: Run_Tempest_API_tests
+          name: Run_Tempest
           condition: COMPLETED
           projects:
-              - name: (9.0)Tempest_tests(on_controller)(api)
+              - name: 9.0-Tempest_tests-on_controller
                 current-parameters: true
-                predefined-parameters: |
-                  REPORT_PREFIX=/srv/jenkins/rally-tempest/api
-                  CEPH_SKIP_TESTS=TRUE
                 same-node: true
                 node-label: Slave-7775
                 node-label-name: Slave-7775
                 abort-all-job: true
       - multijob:
-          name: Report To TestRail(api)
+          name: Report To TestRail
           condition: COMPLETED
           projects:
               - name: (for_multi)testrail_reporter
                 current-parameters: true
-                predefined-parameters: |
-                  TEST_GROUP=Tempest,Ceph,Ironic,SSL(api)
-                  REPORT_PREFIX=/srv/jenkins/rally-tempest/api
                 same-node: true
                 node-label: Slave-7775
                 node-label-name: Slave-7775
                 abort-all-job: true
-
-
-      - multijob:
-          name: Run_Tempest_Scenario_tests
-          condition: COMPLETED
-          projects:
-              - name: (9.0)Tempest_tests(on_controller)(scenario)
-                current-parameters: true
-                predefined-parameters: |
-                  REPORT_PREFIX=/srv/jenkins/rally-tempest/scenario
-                same-node: true
-                node-label: Slave-7775
-                node-label-name: Slave-7775
-                abort-all-job: true
-      - multijob:
-          name: Report To TestRail(scenario)
-          condition: COMPLETED
-          projects:
-              - name: (for_multi)testrail_reporter
-                current-parameters: true
-                predefined-parameters: |
-                  TEST_GROUP=Tempest,Ceph,Ironic,SSL(scenario)
-                  REPORT_PREFIX=/srv/jenkins/rally-tempest/scenario
-                same-node: true
-                node-label: Slave-7775
-                node-label-name: Slave-7775
-                abort-all-job: true
-
 
     triggers:
         - timed: "50 20 * * *"
@@ -186,7 +162,7 @@
     node: Slave-7775
     description: 'Tempest Ceph SSL'
     disabled: false
-    display-name: '(9.0)(multi)Tempest(Ceph,Ironic,SSL)'
+    display-name: '9.0-multi-Tempest-Ceph_Ironic_SSL'
     concurrent: false
     retry-count: 3
     logrotate:
