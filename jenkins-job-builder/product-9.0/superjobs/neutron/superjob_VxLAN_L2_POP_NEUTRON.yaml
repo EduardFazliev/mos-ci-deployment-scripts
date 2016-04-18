@@ -39,9 +39,8 @@
             MILESTONE=9.0
             SUITE=[9.0][MOSQA] Automated Cloud Testing
 
-    triggers:
+    #triggers:
         #- timed: "50 20 * * *"
-        - timed: "30 5 * * *"
     project-type: freestyle
     defaults: global
     #node: Slave-srv134
