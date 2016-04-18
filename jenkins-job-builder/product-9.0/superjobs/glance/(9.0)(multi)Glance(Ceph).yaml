@@ -95,46 +95,6 @@
                 node-label-name: Slave-srv150
                 abort-all-job: true
 
-      - shell: |
-          sudo dos.py list > temp
-          while read -r line
-          do
-          set -e
-          sudo dos.py erase $line || true
-          done < temp
-
-      - multijob:
-          name: Deploy_Env_swift
-          condition: COMPLETED
-          projects:
-              - name: (9.0)create_param_environment_from_template
-                current-parameters: true
-                predefined-parameters: CONFIG_PATH=./templates/glance/swift.yaml
-                same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
-                abort-all-job: true
-      - multijob:
-          name: Run_Glance_Tests_swift
-          condition: COMPLETED
-          projects:
-              - name: (9.0)Glance_tests
-                current-parameters: true
-                same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
-                abort-all-job: true
-      - multijob:
-          name: Report To TestRail_swift
-          condition: COMPLETED
-          projects:
-              - name: (for_multi)testrail_reporter
-                current-parameters: true
-                same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
-                abort-all-job: true
-
     triggers:
         - timed: "50 20 * * *"
 

@@ -70,8 +70,8 @@
               - name: (9.0)create_param_environment_from_template
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Run_Glance_Tests
@@ -80,8 +80,8 @@
               - name: (9.0)Glance_tests
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Report To TestRail
@@ -90,15 +90,15 @@
               - name: (for_multi)testrail_reporter
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv96
-                node-label-name: Slave-srv96
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
 
     triggers:
-        - timed: "50 20 * * *"
+        - timed: "30 5 * * *"
 
     defaults: global
-    node: Slave-srv96
+    node: Slave-srv150
     description: 'Glance tests(VLAN)'
     disabled: true
     display-name: '(9.0)(multi)Glance Tests(VLAN)'
