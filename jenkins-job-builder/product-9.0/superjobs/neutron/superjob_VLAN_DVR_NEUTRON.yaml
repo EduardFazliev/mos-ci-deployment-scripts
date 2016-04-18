@@ -38,7 +38,6 @@
             REPORT_PREFIX=/srv/jenkins/neutron
             MILESTONE=9.0
             SUITE=[9.0][MOSQA] Automated Cloud Testing
-
     triggers:
         #- timed: "50 20 * * *"
         - timed: "30 5 * * *"
