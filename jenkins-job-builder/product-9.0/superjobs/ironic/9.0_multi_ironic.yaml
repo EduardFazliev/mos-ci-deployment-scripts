@@ -63,7 +63,7 @@
     builders:
       - shell:
           #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
-          !include-raw: ../../../shell_scripts/erase_all_envs.sh
+          #!include-raw: ../../../shell_scripts/erase_all_envs.sh
       - multijob:
           name: Deploy_Env
           condition: COMPLETED
@@ -89,11 +89,11 @@
                 same-node: true
                 abort-all-job: true
 
-    triggers:
-        - timed: "0 6 * * *"
+    # triggers:
+    #     - timed: "0 6 * * *"
 
     defaults: global
-    node: Slave-srv137
+    node: Slave-srv131
     description: 'Ironic Tests'
     disabled: false
     display-name: '9.0_multi_Ironic_Tests'
