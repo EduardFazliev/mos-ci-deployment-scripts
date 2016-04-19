@@ -118,7 +118,7 @@
             echo 'source openrc' >> ssh_scr.sh
             echo 'id=$(glance image-list |grep TestVM |awk '\''{print$2}'\'')' >> ssh_scr.sh
             echo 'glance image-delete "$id"' >> ssh_scr.sh
-            echo ' glance image-create --name '\''TestVM'\'' --container-format bare --disk-format qcow2 --file TestVM.img --visibility public ' >> ssh_scr.sh
+            echo ' glance image-create --name TestVM --container-format bare --disk-format qcow2 --file TestVM.img --visibility public ' >> ssh_scr.sh
 
             ################################################
             ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
