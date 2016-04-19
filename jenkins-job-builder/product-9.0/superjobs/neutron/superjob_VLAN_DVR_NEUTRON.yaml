@@ -42,8 +42,7 @@
         #- timed: "50 20 * * *"
     project-type: freestyle
     defaults: global
-    #node: Slave-srv129
-    node: Slave-srv98
+    node: Slave-srv130
     description: 'VLAN+DVR NEUTRON tests'
     disabled: false
     display-name: '9.0-NEUTRON:VLAN+DVR'
