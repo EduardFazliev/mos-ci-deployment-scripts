@@ -71,6 +71,27 @@
                                           -o StrictHostKeyChecking=no \
                                           -T root@"$MASTER_NODE_IP"
 
+            ################################################
+            ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
+            ##### TestVM workaround 19.04.2016 #############
+            ##### BEGIN ####################################
+            ################################################
+
+            ##### Copy TestVM image file to master,#####
+            ##### and then to controller node      #####
+            sshpass -p 'r00tme' scp -o UserKnownHostsFile=/dev/null \
+                                    -o StrictHostKeyChecking=no /home/jenkins/TestVM.img root@"$MASTER_NODE_IP":/root/TestVM.img
+            echo "scp /root/TestVM.img node-$CONTROLLER_ID:/root/TestVM.img" | \
+                  sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null \
+                                          -o StrictHostKeyChecking=no \
+                                          -T root@"$MASTER_NODE_IP"
+
+            ################################################
+            ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
+            ##### TestVM workaround 19.04.2016 #############
+            ##### END ######################################
+            ################################################
+
             ###################################################################
             ##### Generate ssh file, which will be executed on controller #####
             ###################################################################
@@ -87,6 +108,23 @@
             echo 'awk '\''{print $3}'\'' temp.txt > ans' >> ssh_scr.sh
             echo 'ID=`cat ans`' >> ssh_scr.sh
             echo 'echo $ID' >> ssh_scr.sh
+
+            ################################################
+            ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
+            ##### TestVM workaround 19.04.2016 #############
+            ##### BEGIN ####################################
+            ################################################
+
+            echo 'source openrc' >> ssh_scr.sh
+            echo 'id=$(glance image-list |grep TestVM |awk '\''{print$2}'\'')' >> ssh_scr.sh
+            echo 'glance image-delete "$id"' >> ssh_scr.sh
+            echo ' glance image-create --name '\''TestVM'\'' --container-format bare --disk-format qcow2 --file TestVM.img --visibility public ' >> ssh_scr.sh
+
+            ################################################
+            ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
+            ##### TestVM workaround 19.04.2016 #############
+            ##### END ######################################
+            ################################################
 
             echo 'docker run -tid -v /var/lib/rally-tempest-container-home-dir:/home/rally --net host "$ID" > dock.id' >> ssh_scr.sh
             echo 'DOCK_ID=`cat dock.id`' >> ssh_scr.sh
