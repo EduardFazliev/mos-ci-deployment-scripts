@@ -80,7 +80,7 @@
             ##### Copy TestVM image file to master,#####
             ##### and then to controller node      #####
             sshpass -p 'r00tme' scp -o UserKnownHostsFile=/dev/null \
-                                    -o StrictHostKeyChecking=no /home/jenkins/TestVM.img root@"$MASTER_NODE_IP":/root/TestVM.img
+                                    -o StrictHostKeyChecking=no /home/jenkins/images/TestVM.img root@"$MASTER_NODE_IP":/root/TestVM.img
             echo "scp /root/TestVM.img node-$CONTROLLER_ID:/root/TestVM.img" | \
                   sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null \
                                           -o StrictHostKeyChecking=no \
