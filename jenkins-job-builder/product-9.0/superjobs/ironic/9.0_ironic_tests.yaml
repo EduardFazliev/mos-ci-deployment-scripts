@@ -7,7 +7,7 @@
     builders:
         - shell: |
             nohup python ../../../pyton_scripts/ironic/proxy.py  &>proxy.log </dev/null &
-            PID = `echo $!`
+            PID=`echo $!`
             echo "PROXY_PID=$PID" >> "$ENV_INJECT_PATH"
         - inject:
             properties-file: "$ENV_INJECT_PATH"
