@@ -29,7 +29,7 @@
     defaults: global
     node: Slave-srv136
     description: 'VLAN_SAHARA_MURANO HORIZON superjob'
-    disabled: false
+    disabled: true
     display-name: '9.0-superjob_for_VLAN_SAHARA_MURANO HORIZON'
     concurrent: false
     retry-count: 3

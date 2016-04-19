@@ -38,7 +38,7 @@
     project-type: freestyle
     defaults: global
     description: 'Runs Murano tests'
-    disabled: false
+    disabled: true
     display-name: '9.0-horizon_murano_tests'
     concurrent: true
     browser: githubweb
