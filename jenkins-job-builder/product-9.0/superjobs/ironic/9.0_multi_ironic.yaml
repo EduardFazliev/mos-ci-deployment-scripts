@@ -71,8 +71,6 @@
               - name: (9.0)create_param_environment_from_template
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv137
-                node-label-name: Slave-srv137
                 abort-all-job: true
       - multijob:
           name: Run_Ironic_Tests
@@ -81,8 +79,6 @@
               - name: 9.0_ironic_tests
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv137
-                node-label-name: Slave-srv137
                 abort-all-job: true
       - multijob:
           name: Report To TestRail
@@ -91,8 +87,6 @@
               - name: (for_multi)testrail_reporter
                 current-parameters: true
                 same-node: true
-                node-label: Slave-srv137
-                node-label-name: Slave-srv137
                 abort-all-job: true
 
     triggers:
