@@ -1,5 +1,5 @@
 - job:
-    name: (9.0)Glance_tests
+    name: 9.0-Glance_tests
     wrappers:
       - build-name:
           name: ${BUILD_NUMBER}.${FILE,path="build-name-setter.info"}
@@ -36,9 +36,9 @@
         - mos-integration-tests-repository
     project-type: freestyle
     defaults: global
-    description: 'VLAN Glance tests'
+    description: 'Glance tests'
     disabled: false
-    display-name: '(9.0)Glance_tests'
+    display-name: '9.0-Glance_tests'
     concurrent: true
     browser: githubweb
     retry-count: 3
