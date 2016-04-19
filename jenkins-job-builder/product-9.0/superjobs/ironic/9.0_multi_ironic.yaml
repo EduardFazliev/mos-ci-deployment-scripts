@@ -70,8 +70,8 @@
           projects:
               - name: (9.0)create_param_environment_from_template
                 current-parameters: true
-                node-label: Slave-srv131
-                node-label-name: Slave-srv131
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Run_Ironic_Tests
@@ -79,8 +79,8 @@
           projects:
               - name: 9.0_ironic_tests
                 current-parameters: true
-                node-label: Slave-srv131
-                node-label-name: Slave-srv131
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Report To TestRail
@@ -88,15 +88,15 @@
           projects:
               - name: (for_multi)testrail_reporter
                 current-parameters: true
-                node-label: Slave-srv131
-                node-label-name: Slave-srv131
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
 
     # triggers:
     #     - timed: "0 6 * * *"
 
     defaults: global
-    node: Slave-srv131
+    node: Slave-srv150
     description: 'Ironic Tests'
     disabled: false
     display-name: '9.0_multi_Ironic_Tests'
