@@ -5,6 +5,10 @@
           name: ${BUILD_NUMBER}.${FILE,path="build-name-setter.info"}
 
     builders:
+        - shell: |
+            nohup python ../../../pyton_scripts/ironic/proxy.py  &>proxy.log </dev/null &
+            PID = `echo $!`
+            echo "PROXY_PID=$PID" >> "$ENV_INJECT_PATH"
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell: |
@@ -29,6 +33,8 @@
             pip install tox
             tox -e ironic -- -v -E "$ENV_NAME" -S "$SNAPSHOT_NAME"
             deactivate
+
+            sudo kill -9 "$PROXY_PID" || true
 
     scm:
         - mos-integration-tests-repository
