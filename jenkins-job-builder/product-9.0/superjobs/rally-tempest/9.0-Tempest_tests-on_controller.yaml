@@ -196,7 +196,6 @@
     scm:
         - dockerfiles
     project-type: freestyle
-    node: Slave-srv137
     defaults: global
     description: 'Runs Tempest tests'
     disabled: false
