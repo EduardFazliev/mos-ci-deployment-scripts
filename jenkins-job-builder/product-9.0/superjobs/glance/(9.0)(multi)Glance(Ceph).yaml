@@ -76,7 +76,7 @@
           name: Run_Glance_Tests_ceph
           condition: COMPLETED
           projects:
-              - name: (9.0)Glance_tests
+              - name: 9.0-Glance_tests
                 current-parameters: true
                 same-node: true
                 abort-all-job: true
@@ -95,7 +95,7 @@
     defaults: global
     node: Slave-srv150
     description: 'Glance tests(Ceph)'
-    disabled: false
+    disabled: true
     display-name: '(9.0)(multi)Glance Tests(Ceph)'
     concurrent: false
     retry-count: 3
