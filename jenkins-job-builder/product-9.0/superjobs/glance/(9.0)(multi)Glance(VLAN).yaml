@@ -69,7 +69,8 @@
           projects:
               - name: (9.0)create_param_environment_from_template
                 current-parameters: true
-                same-node: true
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Run_Glance_Tests
@@ -77,7 +78,8 @@
           projects:
               - name: 9.0-Glance_tests
                 current-parameters: true
-                same-node: true
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
       - multijob:
           name: Report To TestRail
@@ -85,7 +87,8 @@
           projects:
               - name: (for_multi)testrail_reporter
                 current-parameters: true
-                same-node: true
+                node-label: Slave-srv150
+                node-label-name: Slave-srv150
                 abort-all-job: true
 
     triggers:
