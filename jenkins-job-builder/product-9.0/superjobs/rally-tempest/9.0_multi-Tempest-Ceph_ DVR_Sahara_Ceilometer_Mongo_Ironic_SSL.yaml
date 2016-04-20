@@ -173,8 +173,8 @@
 #                node-label-name: Slave-7775
 #                abort-all-job: true
 
-    triggers:
-        - timed: "50 20 * * *"
+#    triggers:
+#        - timed: "50 20 * * *"
 
     defaults: global
     node: Slave-7775
