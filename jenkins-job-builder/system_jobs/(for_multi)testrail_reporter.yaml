@@ -58,8 +58,8 @@
     browser: githubweb
     retry-count: 3
     logrotate:
-      daysToKeep: 20
-      numToKeep: 50
+      daysToKeep: 25
+      numToKeep: 200
       artifactDaysToKeep: -1
       artifactNumToKeep: -1
     publishers:
