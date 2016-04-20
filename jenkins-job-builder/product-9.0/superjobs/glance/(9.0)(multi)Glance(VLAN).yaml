@@ -89,12 +89,12 @@
                 abort-all-job: true
 
     triggers:
-        - timed: "30 5 * * *"
+        - timed: "30 4 * * *"
 
     defaults: global
     node: Slave-srv150
     description: 'Glance tests(VLAN)'
-    disabled: true
+    disabled: false
     display-name: '(9.0)(multi)Glance Tests(VLAN)'
     concurrent: false
     retry-count: 3

@@ -129,7 +129,7 @@
     defaults: global
     node: Slave-srv150
     description: 'Glance tests'
-    disabled: false
+    disabled: true
     display-name: '9.0-multi-Glance-Ceph_then_VLAN'
     concurrent: false
     retry-count: 3
