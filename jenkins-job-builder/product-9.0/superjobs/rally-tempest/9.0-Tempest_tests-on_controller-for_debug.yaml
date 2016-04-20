@@ -1,5 +1,5 @@
 - job:
-    name: 9.0-Tempest_tests-on_controller
+    name: 9.0-Tempest_tests-on_controller-for_debug
     wrappers:
       - build-name:
           name: ${BUILD_NUMBER}:${FILE,path="build-name-setter.info"}
@@ -208,7 +208,7 @@
     defaults: global
     description: 'Runs Tempest tests'
     disabled: false
-    display-name: '9.0-Tempest_tests-on_controller'
+    display-name: '9.0-Tempest_tests-on_controller-for_debug'
     concurrent: true
     browser: githubweb
     retry-count: 3
