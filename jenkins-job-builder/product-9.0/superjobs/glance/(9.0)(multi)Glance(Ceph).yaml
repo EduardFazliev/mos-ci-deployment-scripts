@@ -2,6 +2,10 @@
     name: (9.0)(multi)Glance(Ceph)
     project-type: multijob
 
+    properties:
+      - heavy-job:
+          weight: 2
+
     parameters:
         #EnvInject file
         - string:
