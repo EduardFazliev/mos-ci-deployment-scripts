@@ -39,6 +39,9 @@
             name: CEPH_ENABLE
             default: "TRUE"
         - string:
+            name: RADOS_ENABLE
+            default: "TRUE"
+        - string:
             name: CEPH_GLANCE_ENABLE
             default: "TRUE"
         - string:
