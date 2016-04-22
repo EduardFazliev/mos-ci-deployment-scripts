@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 sudo dos.py list > temp
 while read -r line
 do

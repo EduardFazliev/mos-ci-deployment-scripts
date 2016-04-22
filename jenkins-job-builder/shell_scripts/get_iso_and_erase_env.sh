@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 virtualenv init
 . ./init/bin/activate
 pip install python-jenkins

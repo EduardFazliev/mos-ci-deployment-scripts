@@ -1,0 +1,47 @@
+- job:
+    name: get_swarm_iso_on_all_slaves
+    parameters:
+      - node:
+          name: all_nodes
+          description: "Select slave"
+          default-slaves:
+            !include-raw: ../shell_scripts/slaves_list.lst
+          allowed-slaves:
+            !include-raw: ../shell_scripts/slaves_list.lst
+          ignore-offline-nodes: true
+          allowed-multiselect: true
+
+      - string:
+          name: ENV_INJECT_PATH
+          default: /home/jenkins/env_inject.properties
+      - string:
+          name: ISO_DIR
+          default: /var/www/fuelweb-iso
+    builders:
+        - python:
+            !include-raw: ../python_scripts/9.0_init_env_for_job/init_env.py
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../shell_scripts/get_swarm_iso.sh
+
+    project-type: freestyle
+    defaults: global
+    node: master
+#    triggers:
+#        - timed: "45 20 * * *"
+
+    description: 'Loads Swarm ISO to all slaves.'
+    disabled: false
+    display-name: 'Get_Swarm_ISO'
+    concurrent: true
+    browser: githubweb
+    retry-count: 3
+    logrotate:
+      daysToKeep: 1
+
+    publishers:
+      - workspace-cleanup:
+          fail-build: false
+      - email:
+          recipients: efazliev@mirantis.com
