@@ -133,3 +133,14 @@
     email-recipients: efazliev@mirantis.com
     jobs:
       - '9.0-{name}_tests_generated_from_template'
+
+- project:
+    name: FAILOVER
+    iso_dir: /var/www/fuelweb-iso
+    report_prefix: /srv/jenkins/failover
+    test_path: mos_tests/failover
+    description: FAILOVER tests runner
+    display-name: 9.0 FAILOVER tests /from template/
+    email-recipients: efazliev@mirantis.com
+    jobs:
+      - '9.0-{name}_tests_generated_from_template'
