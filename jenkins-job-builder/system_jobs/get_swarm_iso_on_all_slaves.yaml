@@ -18,6 +18,16 @@
           name: ISO_DIR
           default: /var/www/fuelweb-iso
     builders:
+        - shining-panda:
+            build-environment: virtualenv
+            python-version: System-CPython-2.7
+            nature: shell
+            command: pip install python-jenkins
+            name: virtvenv1
+            clear: true
+            use-distribute: true
+            system-site-packages: true
+            ignore-exit-code: true
         - python:
             !include-raw: ../python_scripts/9.0_init_env_for_job/init_env.py
         - inject:
