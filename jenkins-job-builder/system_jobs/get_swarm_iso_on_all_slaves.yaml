@@ -5,9 +5,9 @@
           name: all_nodes
           description: "Select slave"
           default-slaves:
-            !include-raw: ../shell_scripts/slaves.list
+            !include: ../shell_scripts/slaves.list
           allowed-slaves:
-            !include-raw: ../shell_scripts/slaves.list
+            !include: ../shell_scripts/slaves.list
           ignore-offline-nodes: true
           allowed-multiselect: true
 
