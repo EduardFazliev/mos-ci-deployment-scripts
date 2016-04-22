@@ -160,7 +160,7 @@ def main():
 
     try:
         with open(env_inject_path, 'w') as f:
-            f.write('SWARM_ISO_LINK={0}'.format(env_inject_path))
+            f.write('SWARM_ISO_LINK={0}'.format(iso_link))
     except Exception as e:
         print e
 
