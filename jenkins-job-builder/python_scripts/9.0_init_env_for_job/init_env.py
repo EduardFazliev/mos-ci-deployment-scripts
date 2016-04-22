@@ -156,7 +156,7 @@ def main():
     print iso_link
     # Usually env_inject_path is ~/env_inject.properties
     env_inject_default = os.path.expanduser('~/env_inject.properties')
-    env_inject_path = os.environ('ENV_INJECT_FILE', env_inject_default)
+    env_inject_path = os.environ.get('ENV_INJECT_FILE', env_inject_default)
 
     try:
         with open(env_inject_path, 'w') as f:
