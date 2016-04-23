@@ -63,7 +63,7 @@
     builders:
       - shell:
           #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
-          #!include-raw: ../../../shell_scripts/erase_all_envs.sh
+          !include-raw: ../../../shell_scripts/erase_all_envs.sh
       - multijob:
           name: Deploy_Env
           condition: COMPLETED
@@ -92,8 +92,8 @@
                 node-label-name: Slave-srv150
                 abort-all-job: true
 
-    # triggers:
-    #     - timed: "0 6 * * *"
+    triggers:
+        - timed: "10 7 * * *"
 
     defaults: global
     node: Slave-srv150
