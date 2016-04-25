@@ -168,7 +168,7 @@
     node: Slave-srv137
     description: 'Tempest LVM SSL'
     disabled: false
-    display-name: '9.0-multi-Tempest-LVM_Cinder_Ironic_SSL'
+    display-name: '9.0-multi-Tempest-LVM_Cinder_DVR_Sahara_Ceilometer_Ironic_SSL'
     concurrent: false
     retry-count: 3
     logrotate:

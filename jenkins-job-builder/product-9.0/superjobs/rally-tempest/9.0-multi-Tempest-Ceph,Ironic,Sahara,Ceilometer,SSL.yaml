@@ -179,7 +179,7 @@
     node: Slave-7775
     description: 'Tempest Ceph SSL'
     disabled: false
-    display-name: '9.0-multi-Tempest-Ceph_Ironic_SSL'
+    display-name: '9.0-multi-Tempest-Ceph_DVR_Sahara_Ceilometer_Ironic_SSL'
     concurrent: false
     retry-count: 3
     logrotate:

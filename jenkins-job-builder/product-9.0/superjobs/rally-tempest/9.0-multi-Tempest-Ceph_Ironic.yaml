@@ -175,7 +175,7 @@
     node: Slave-srv139
     description: 'Tempest Ceph'
     disabled: false
-    display-name: '9.0-multi-Tempest-Ceph_Ironic'
+    display-name: '9.0-multi-Tempest-Ceph_DVR_Sahara_Ceilometer_Ironic'
     concurrent: false
     retry-count: 3
     logrotate:
