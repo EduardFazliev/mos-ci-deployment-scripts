@@ -123,13 +123,13 @@
           artifacts: 'sahara-conf'
           allow-empty: 'true'
           fingerprint: true
-#
-#      - archive:
-#          artifacts: 'test.log'
-#          allow-empty: 'true'
-#          fingerprint: true
+
+      - archive:
+          artifacts: 'spark*'
+          allow-empty: 'true'
+          fingerprint: true
 #
 #      - junit:
 #          results: report.xml
-      - workspace-cleanup:
-          fail-build: false
+#      - workspace-cleanup:
+#          fail-build: false
