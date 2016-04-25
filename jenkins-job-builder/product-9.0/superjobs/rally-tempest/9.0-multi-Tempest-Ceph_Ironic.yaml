@@ -54,12 +54,12 @@
         - string:
             name: SAHARA_ENABLE
             default: "TRUE"
-        - string:
-            name: CEILOMETER_ENABLE
-            default: "TRUE"
-        - string:
-            name: MONGO_ENABLE
-            default: "TRUE"
+#        - string:
+#            name: CEILOMETER_ENABLE
+#            default: "TRUE"
+#        - string:
+#            name: MONGO_ENABLE
+#            default: "TRUE"
 
         - string:
             name: IRONIC_ENABLE
@@ -74,7 +74,7 @@
             default: "1"
         - string:
             name: CONTROLLERS_COUNT
-            default: "1"
+            default: "3"
         - string:
             name: COMPUTES_COUNT
             default: "2"
