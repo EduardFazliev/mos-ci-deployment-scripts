@@ -47,6 +47,20 @@
         - string:
             name: REPLICA_CEPH
             default: "TRUE"
+
+        - string:
+            name: DVR_ENABLE
+            default: "TRUE"
+        - string:
+            name: SAHARA_ENABLE
+            default: "TRUE"
+        - string:
+            name: CEILOMETER_ENABLE
+            default: "TRUE"
+        - string:
+            name: MONGO_ENABLE
+            default: "TRUE"
+
         - string:
             name: IRONIC_ENABLE
             default: "TRUE"
@@ -94,7 +108,7 @@
             default: "TRUE"
         - string:
             name: TEST_GROUP
-            default: "Tempest,Ceph,Ironic,SSL"
+            default: "Tempest (Ceph,SSL,DVR,Sahara,Ceilometer,Ironic)"
 
         - string:
             name: SUITE

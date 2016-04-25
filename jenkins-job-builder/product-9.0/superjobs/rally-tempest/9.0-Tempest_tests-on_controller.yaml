@@ -38,7 +38,7 @@
             sed -i 's|rally verify install --source /var/lib/tempest --no-tempest-venv \
                    |rally verify install --source /var/lib/tempest|g' \
                    rally-tempest/latest/setup_tempest.sh
-            sed -i 's|FROM rallyforge/rally:latest|FROM rallyforge/rally:0.3.1|g' \
+            sed -i 's|FROM rallyforge/rally:latest|FROM rallyforge/rally:0.4.0|g' \
                    rally-tempest/latest/Dockerfile
 
             ##### Generating py script to get IP of admin node #####
@@ -79,12 +79,12 @@
 
             ##### Copy TestVM image file to master,#####
             ##### and then to controller node      #####
-            sshpass -p 'r00tme' scp -o UserKnownHostsFile=/dev/null \
-                                    -o StrictHostKeyChecking=no /home/jenkins/images/TestVM.img root@"$MASTER_NODE_IP":/root/TestVM.img
-            echo "scp /root/TestVM.img node-$CONTROLLER_ID:/root/TestVM.img" | \
-                  sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null \
-                                          -o StrictHostKeyChecking=no \
-                                          -T root@"$MASTER_NODE_IP"
+            #sshpass -p 'r00tme' scp -o UserKnownHostsFile=/dev/null \
+            #                        -o StrictHostKeyChecking=no /home/jenkins/images/TestVM.img root@"$MASTER_NODE_IP":/root/TestVM.img
+            #echo "scp /root/TestVM.img node-$CONTROLLER_ID:/root/TestVM.img" | \
+            #      sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null \
+            #                              -o StrictHostKeyChecking=no \
+            #                              -T root@"$MASTER_NODE_IP"
 
             ################################################
             ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
@@ -114,12 +114,12 @@
             ##### TestVM workaround 19.04.2016 #############
             ##### BEGIN ####################################
             ################################################
-
-            echo 'source openrc' >> ssh_scr.sh
-            echo 'id=$(glance image-list |grep TestVM |awk '\''{print$2}'\'')' >> ssh_scr.sh
-            echo 'glance image-delete "$id"' >> ssh_scr.sh
-            echo ' glance image-create --name TestVM --container-format bare --disk-format qcow2 --file TestVM.img --visibility public ' >> ssh_scr.sh
-
+            #
+            # echo 'source openrc' >> ssh_scr.sh
+            # echo 'id=$(glance image-list |grep TestVM |awk '\''{print$2}'\'')' >> ssh_scr.sh
+            # echo 'glance image-delete "$id"' >> ssh_scr.sh
+            # echo ' glance image-create --name TestVM --container-format bare --disk-format qcow2 --file TestVM.img --visibility public ' >> ssh_scr.sh
+            #
             ################################################
             ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
             ##### TestVM workaround 19.04.2016 #############
@@ -140,12 +140,12 @@
             echo 'file=`find / -name tempest.conf`' >> ssh_scr.sh
             echo 'echo "backup = False" >> $file' >> ssh_scr.sh
 
-            if [[ "$IRONIC_ENABLE" == 'TRUE' ]] ;
-            then
-            echo ' sed -i "95i ironic = True" $file ' >> ssh_scr.sh
-            else
-            echo ' sed -i "95i ironic = False" $file ' >> ssh_scr.sh
-            fi
+            # if [[ "$IRONIC_ENABLE" == 'TRUE' ]] ;
+            # then
+            # echo ' sed -i "95i ironic = True" $file ' >> ssh_scr.sh
+            # else
+            # echo ' sed -i "95i ironic = False" $file ' >> ssh_scr.sh
+            # fi
 
             echo 'sed -i "79i max_template_size = 5440000" $file ' >> ssh_scr.sh
             echo 'sed -i "80i max_resources_per_stack = 20000" $file ' >> ssh_scr.sh

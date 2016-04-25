@@ -35,6 +35,20 @@
         - string:
             name: CINDER_ENABLE
             default: "TRUE"
+
+        - string:
+            name: DVR_ENABLE
+            default: "TRUE"
+        - string:
+            name: SAHARA_ENABLE
+            default: "TRUE"
+        - string:
+            name: CEILOMETER_ENABLE
+            default: "TRUE"
+        - string:
+            name: MONGO_ENABLE
+            default: "TRUE"
+
         - string:
             name: IRONIC_ENABLE
             default: "TRUE"
@@ -83,7 +97,7 @@
             default: "FALSE"
         - string:
             name: TEST_GROUP
-            default: "Tempest,LVM,Cinder,Ironic,SSL"
+            default: "Tempest (SSL,LVM,Cinder,DVR,Sahara,Ceilometer,Ironic)"
 
         - string:
             name: SUITE
