@@ -85,11 +85,18 @@
             MILESTONE=9.0
             SUITE=[9.0][MOSQA] Automated Cloud Testing
 
+      - trigger-builds:
+        - project: 'horizon_integration_tests'
+          same-node: true
+          block: true
+          block-thresholds:
+            build-step-failure-threshold: 'never'
+
     triggers:
         - timed: "50 20 * * *"
     project-type: freestyle
     defaults: global
-    node: Slave-srv131
+    node: Slave-7774
     description: 'VLAN NEUTRON tests'
     disabled: false
     display-name: '9.0-NEUTRON:VLAN'
