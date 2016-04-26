@@ -144,3 +144,14 @@
     email-recipients: efazliev@mirantis.com
     jobs:
       - '9.0-{name}_tests_generated_from_template'
+
+- project:
+    name: RABBITMQ_OSLO
+    iso_dir: /var/www/fuelweb-iso
+    report_prefix: /srv/jenkins/rabbitmq_oslo
+    test_path: mos_tests/rabbitmq_oslo
+    description: Rabbitmq_oslo tests runner
+    display-name: 9.0 RABBITMQ_OSLO tests /from template/
+    email-recipients: efazliev@mirantis.com
+    jobs:
+      - '9.0-{name}_tests_generated_from_template'
