@@ -62,8 +62,8 @@
 
     builders:
       - shell:
-          #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
-          !include-raw: ../../../shell_scripts/erase_all_envs.sh
+          !include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          #!include-raw: ../../../shell_scripts/erase_all_envs.sh
       - multijob:
           name: Deploy_Env
           condition: COMPLETED

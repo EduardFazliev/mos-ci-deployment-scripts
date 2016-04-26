@@ -2,8 +2,8 @@
     name: 9.0-superjob_for_VxLAN_NEUTRON-mitaka
     builders:
       - shell:
-          #!include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
-          !include-raw: ../../../shell_scripts/erase_all_envs.sh
+          !include-raw: ../../../shell_scripts/get_iso_and_erase_env.sh
+          #!include-raw: ../../../shell_scripts/erase_all_envs.sh
       - trigger-builds:
         - project: '9.0_create_param_environment'
           same-node: true
@@ -37,15 +37,15 @@
             MILESTONE=9.0
             SUITE=[9.0][MOSQA] Automated Cloud Testing
 
-    #triggers:
-        #- timed: "50 20 * * *"
+    triggers:
+        - timed: "50 20 * * *"
     project-type: freestyle
     defaults: global
     #####
     #node: Slave-srv135
     #until all servers are returned
     #####
-    node: Slave-srv130
+    node: Slave-srv131
     description: 'VxLAN NEUTRON tests'
     disabled: false
     display-name: '9.0-NEUTRON:VxLAN'
