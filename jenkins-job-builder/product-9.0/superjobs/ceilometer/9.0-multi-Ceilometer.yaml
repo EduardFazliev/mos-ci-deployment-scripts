@@ -93,7 +93,7 @@
                 abort-all-job: true
 
     triggers:
-        - timed: "0 4 * * *"
+        - timed: "0 5 * * *"
 
     defaults: global
     node: Slave-srv150
