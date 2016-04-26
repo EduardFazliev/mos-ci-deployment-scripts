@@ -138,7 +138,7 @@
             fi
 
             echo 'file=`find / -name tempest.conf`' >> ssh_scr.sh
-            echo 'echo "backup = False" >> $file' >> ssh_scr.sh
+            # echo 'echo "backup = False" >> $file' >> ssh_scr.sh
 
             # if [[ "$IRONIC_ENABLE" == 'TRUE' ]] ;
             # then
