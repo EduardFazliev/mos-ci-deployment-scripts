@@ -42,12 +42,12 @@
         - string:
             name: SAHARA_ENABLE
             default: "TRUE"
-#        - string:
-#            name: CEILOMETER_ENABLE
-#            default: "TRUE"
-#        - string:
-#            name: MONGO_ENABLE
-#            default: "TRUE"
+        - string:
+            name: CEILOMETER_ENABLE
+            default: "TRUE"
+        - string:
+            name: MONGO_ENABLE
+            default: "TRUE"
 
         - string:
             name: IRONIC_ENABLE
@@ -101,7 +101,7 @@
 
         - string:
             name: SUITE
-            default: "[9.0][MOSQA] Tempest 9.0"
+            default: "[9.0][MOSQA] Tempest 9.0 Mitaka"
         - string:
             name: MILESTONE
             default: "9.0"
