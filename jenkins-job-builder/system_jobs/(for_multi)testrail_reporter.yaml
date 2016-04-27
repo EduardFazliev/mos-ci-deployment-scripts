@@ -58,10 +58,10 @@
     browser: githubweb
     retry-count: 3
     logrotate:
-      daysToKeep: 25
-      numToKeep: 200
+      daysToKeep: 30
       artifactDaysToKeep: -1
       artifactNumToKeep: -1
+
     publishers:
       - email:
           recipients: efazliev@mirantis.com

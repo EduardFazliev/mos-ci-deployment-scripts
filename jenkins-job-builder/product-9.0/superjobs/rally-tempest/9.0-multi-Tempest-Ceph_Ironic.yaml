@@ -54,12 +54,12 @@
         - string:
             name: SAHARA_ENABLE
             default: "TRUE"
-#        - string:
-#            name: CEILOMETER_ENABLE
-#            default: "TRUE"
-#        - string:
-#            name: MONGO_ENABLE
-#            default: "TRUE"
+        - string:
+            name: CEILOMETER_ENABLE
+            default: "TRUE"
+        - string:
+            name: MONGO_ENABLE
+            default: "TRUE"
 
         - string:
             name: IRONIC_ENABLE
@@ -179,7 +179,7 @@
     concurrent: false
     retry-count: 3
     logrotate:
-      daysToKeep: 5
-      numToKeep: 20
+      daysToKeep: 30
       artifactDaysToKeep: -1
       artifactNumToKeep: -1
+
