@@ -12,7 +12,7 @@
              ##### for master node in public net                        #####
              !include-raw: ../../../shell_scripts/add_interface.sh
          - shell:
-             !inculde-raw: ../../../shell_scripts/tempest_tests_on_master.sh
+             !include-raw: ../../../shell_scripts/tempest_tests_on_master.sh
      scm:
          - dockerfiles
      project-type: freestyle
