@@ -36,12 +36,12 @@
           artifacts: 'openstack_dashboard/test/integration_tests/integration_tests_screenshots/**'
           allow-empty: 'true'
           fingerprint: true
-     - archive:
-         artifacts: 'report.xml'
-         allow-empty: 'true'
-         fingerprint: true
-     - junit:
-         results: report.xml
+      - archive:
+          artifacts: 'report.xml'
+          allow-empty: 'true'
+          fingerprint: true
+      - junit:
+          results: report.xml
 #      - archive:
 #          artifacts: 'verification.xml'
 #          allow-empty: 'true'
