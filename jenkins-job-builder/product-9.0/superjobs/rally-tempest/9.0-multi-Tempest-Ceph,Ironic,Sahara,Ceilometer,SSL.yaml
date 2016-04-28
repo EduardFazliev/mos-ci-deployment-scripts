@@ -6,7 +6,7 @@
         # EnvInject file
         - string:
             name: ENV_INJECT_PATH
-            default: "/home/efazliev/env_inject.properties"
+            default: "/home/jenkins/env_inject.properties"
 
         ################################
         # Deploy environment parameters#
@@ -112,7 +112,7 @@
 
         - string:
             name: SUITE
-            default: "[9.0][MOSQA] Tempest 9.0"
+            default: "[9.0][MOSQA] Tempest 9.0 Mitaka"
         - string:
             name: MILESTONE
             default: "9.0"

@@ -108,7 +108,7 @@
             default: "Tempest (Ceph,DVR,Sahara,Ceilometer,Ironic)"
         - string:
             name: SUITE
-            default: "[9.0][MOSQA] Tempest 9.0"
+            default: "[9.0][MOSQA] Tempest 9.0 Mitaka"
         - string:
             name: MILESTONE
             default: "9.0"
