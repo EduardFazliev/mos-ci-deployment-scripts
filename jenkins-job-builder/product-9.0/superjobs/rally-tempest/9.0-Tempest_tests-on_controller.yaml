@@ -8,7 +8,7 @@
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../../shell_scripts/prepare_controller.sh
+            !include-raw: ../../../shell_scripts/tempest_tests_on_controller.sh
 
     scm:
         - dockerfiles
