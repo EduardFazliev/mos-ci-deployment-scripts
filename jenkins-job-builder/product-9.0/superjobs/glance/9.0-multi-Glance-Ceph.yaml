@@ -37,7 +37,7 @@
         # TestRail Reporter parameters
         - string:
             name: TEST_GROUP
-            default: "Ironic"
+            default: "Glance(Ceph)"
         - string:
             name: TESTRAIL_FILE
             default: "/var/www/test_rail/user.sh"
