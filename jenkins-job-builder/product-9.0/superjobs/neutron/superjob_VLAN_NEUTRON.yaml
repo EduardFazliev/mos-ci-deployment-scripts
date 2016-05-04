@@ -77,6 +77,7 @@
           block-thresholds:
             build-step-failure-threshold: 'never'
           predefined-parameters: |
+            HORIZON=TRUE
             SNAPSHOT_NAME=ha_deploy_VLAN_CINDER
             TEST_GROUP=Horizon
             REPORT_PREFIX=/srv/jenkins/horizon
