@@ -4,6 +4,20 @@
 
     builders:
       - shell: |
+          set +e
+          ISO_NAME=`ls "$ISO_DIR"`
+          ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+          # Generate file for build-name plugin
+          SNAPSHOT=`echo $SNAPSHOT_NAME | sed 's/ha_deploy_//'`
+          echo "$ISO_ID"_"$SNAPSHOT" > build-name-setter.info
+          ENV_NAME=MOS_CI_"$ISO_NAME"
+
+          # Storing path for xml reports, that will be used in
+          # report_to_testrail job
+          REPORT_PATH="$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME"
+          echo "$REPORT_PATH" > ./param.pm
+          echo "$BUILD_URL" > ./build_url
+
           sudo apt-get update
           sudo apt-get -y install firefox xvfb python-virtualenv
 
@@ -32,6 +46,15 @@
       artifactDaysToKeep: -1
       artifactNumToKeep: -1
     publishers:
+      - postbuildscript:
+          script-only-if-succeeded: False
+          builders:
+            - shell: |
+                set -e
+                REPORT_PATH=`cat ./param.pm`
+                sudo mkdir -p "$REPORT_PATH"
+                sudo cp report.xml "$REPORT_PATH"
+                sudo cp build_url "$REPORT_PATH"
       - archive:
           artifacts: 'openstack_dashboard/test/integration_tests/integration_tests_screenshots/**'
           allow-empty: 'true'
@@ -50,26 +73,5 @@
 #          results: verification.xml
       - email:
           recipients: schipiga@mirantis.com
-#      - postbuildscript:
-#          script-only-if-succeeded: True
-#          builders:
-#            - shell: |
-#                set +e
-#                REPORT_PATH=`cat ./param.pm`
-#                sudo mkdir -p "$REPORT_PATH"
-#                sudo cp verification.xml "$REPORT_PATH"
-#                sudo cp build_url "$REPORT_PATH"
       - workspace-cleanup:
           fail-build: false
-#
-#      - postbuildscript:
-#          script-only-if-succeeded: False
-#          script-only-if-failed: True
-#          builders:
-#            - shell: |
-#                set +e
-#                REPORT_PATH=`cat ./param.pm`
-#                sudo mkdir -p "$REPORT_PATH"
-#                wget -O verification.xml https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/product-9.0/superjobs/rally-tempest/verification.xml.template
-#                sudo cp verification.xml "$REPORT_PATH"
-#                sudo cp build_url "$REPORT_PATH"
