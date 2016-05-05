@@ -55,7 +55,7 @@
     tox_test_name: glance
     description: 9.0 Glance tests
     display-name: 9.0 Glance tests /from template/
-    email-recipients: efazliev@mirantis.com
+    email_recepients: efazliev@mirantis.com
     jobs:
       - '9.0-{name}_from_template'
 
@@ -64,7 +64,7 @@
     tox_test_name: ironic
     description: 9.0 Ironic tests
     display-name: 9.0 Ironic tests /from template/
-    email-recipients: efazliev@mirantis.com
+    email_recepients: efazliev@mirantis.com
     jobs:
       - '9.0-{name}_from_template'
 
@@ -73,6 +73,6 @@
     tox_test_name: ceilometer
     description: 9.0 Ceilometer tests
     display-name: 9.0 Ceilometer tests /from template/
-    email-recipients: efazliev@mirantis.com
+    email_recepients: efazliev@mirantis.com
     jobs:
       - '9.0-{name}_from_template'
