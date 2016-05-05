@@ -31,4 +31,7 @@ else
 report -v --iso-id "$ISO_ID" --env-description "$TEST_GROUP" --testrail-url  "$TESTRAIL_URL" --testrail-user  "$TESTRAIL_USER" --testrail-password "$TESTRAIL_PASSWORD" --testrail-project "$TESTRAIL_PROJECT" --testrail-milestone "$TESTRAIL_MILESTONE" --testrail-suite "$TESTRAIL_SUITE" --test-results-link "$BUILD" "$REPORT_FILE"
 fi
 
+sudo mkdir -p "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && sudo cp "$REPORT_FILE" "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && sudo cp test.log sudo cp "$REPORT_FILE" "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" || true
+
+
 deactivate
