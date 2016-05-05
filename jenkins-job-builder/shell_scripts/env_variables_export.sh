@@ -1,7 +1,7 @@
-ISO_NAME=`ls {iso_dir}`
+ISO_NAME=`ls "$ISO_DIR"`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
-ISO_PATH="${ISO_DIR}/${ISO_NAME}"
+ISO_PATH="$ISO_DIR/$ISO_NAME"
 
 echo "ENV_NAME=$ENV_NAME" > "$ENV_INJECT_PATH"
 echo "ISO_ID=$ISO_ID" >> "$ENV_INJECT_PATH"
