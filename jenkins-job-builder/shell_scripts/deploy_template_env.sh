@@ -4,56 +4,48 @@
 
 
 patch_fuel_qa(){{
-# Check and apply patch to fuel_qa
-set +e
-pushd $PWD/fuel-qa
-file_name=$1
-patch_file=../fuel_qa_patches/$file_name
-echo "Check for patch $file_name"
-git apply --check $patch_file 2> /dev/null
-if [ $? -eq 0 ]; then
-echo "Applying patch $file_name"
-git apply $patch_file
-fi
-popd
-set -e
+    # Check and apply patch to fuel_qa
+    set +e
+    pushd $PWD/fuel-qa
+    file_name=$1
+    patch_file=../fuel_qa_patches/$file_name
+    echo "Check for patch $file_name"
+    git apply --check $patch_file 2> /dev/null
+    if [ $? -eq 0 ]; then
+        echo "Applying patch $file_name"
+        git apply $patch_file
+    fi
+    popd
+    set -e
 }}
-
-
 
 # exit from shell if error happens
 set -e
 
-# Clone repo
-rm -rf mos-ci-deployment-scripts
-git clone https://github.com/Mirantis/mos-ci-deployment-scripts.git
-cd mos-ci-deployment-scripts
-git checkout stable/9.0
-
 # Hide trace on jenkins
 if [ -z "$JOB_NAME" ]; then
-set -o xtrace
+    set -o xtrace
 fi
 
 if [ -z "$ISO_PATH" ]; then
-echo "Please download ISO and define env variable ISO_PATH"
-exit 1
+    echo "Please download ISO and define env variable ISO_PATH"
+    exit 1
 fi
 if [ ! -f "$ISO_PATH" ]; then
-echo "$ISO_PATH is not exists or not a regular file"
-exit 1
+    echo "$ISO_PATH is not exists or not a regular file"
+    exit 1
 fi
 
 PWD=$(pwd)
-#CONFIG_PATH=$1:?You should pass a valid path to Yaml tempate as first argument
+#CONFIG_PATH=${{1:?You should pass a valid path to Yaml tempate as first argument}}
 
 if [ ! -f "$CONFIG_PATH" ]; then
-echo "$CONFIG_PATH is not exists or not a regular file"
-exit 1
+    echo "$CONFIG_PATH is not exists or not a regular file"
+    exit 1
 fi
 CONFIG_FOLDER=$(basename $(dirname $CONFIG_PATH))
 CONFIG_FILE=$(basename $CONFIG_PATH)
-CONFIG_NAME="$CONFIG_FILE%.*"
+CONFIG_NAME="${{CONFIG_FILE%.*}}"
 
 SNAPSHOT_NAME="$CONFIG_FOLDER"_"$CONFIG_NAME"
 echo "SNAPSHOT_NAME=$SNAPSHOT_NAME" >> "$ENV_INJECT_PATH"
@@ -75,30 +67,30 @@ DEPLOYMENT_TIMEOUT=${{DEPLOYMENT_TIMEOUT:-10000}}
 
 export ENV_NAME DISABLE_SSL KVM_USE INTERFACE_MODEL PLUGINS_CONFIG_PATH DEPLOYMENT_TIMEOUT
 
-echo "Env name:         $ENV_NAME"
-echo "Snapshot name:    $SNAPSHOT_NAME"
-echo "Fuel QA branch:   $FUEL_QA_VER"
+echo "Env name:         ${{ENV_NAME}}"
+echo "Snapshot name:    ${{SNAPSHOT_NAME}}"
+echo "Fuel QA branch:   ${{FUEL_QA_VER}}"
 echo ""
 
 # Check if folder for virtual env exist
-if [ ! -d "$V_ENV_DIR" ]; then
-virtualenv --no-site-packages $V_ENV_DIR
+if [ ! -d "${{V_ENV_DIR}}" ]; then
+    virtualenv --no-site-packages ${{V_ENV_DIR}}
 fi
 
-source $V_ENV_DIR/bin/activate
+source ${{V_ENV_DIR}}/bin/activate
 pip install -U pip
 
 # Check if fuel-qa folder exist
 if [ ! -d fuel-qa ]; then
-git clone -b "$FUEL_QA_VER" https://github.com/openstack/fuel-qa
+    git clone -b "${{FUEL_QA_VER}}" https://github.com/openstack/fuel-qa
 else
-pushd fuel-qa
-git clean -f -d -x
-git checkout -- *
-git checkout "$FUEL_QA_VER"
-git reset --hard
-git pull
-popd
+    pushd fuel-qa
+    git clean -f -d -x
+    git checkout -- *
+    git checkout "${{FUEL_QA_VER}}"
+    git reset --hard
+    git pull
+    popd
 fi
 
 patch_fuel_qa qos.patch
@@ -116,18 +108,18 @@ cp $CONFIG_PATH fuel-qa/system_test/tests_templates/tests_configs/
 cd fuel-qa
 
 
-if [ "$INTERFACE_MODEL" == 'virtio' ]; then
-# Virtio network interfaces have names eth0..eth5
-# (rather than default names - enp0s3..enp0s8)
-for i in 0..5; do
-export IFACE_$i=eth$i
-done
+if [ "${{INTERFACE_MODEL}}" == 'virtio' ]; then
+    # Virtio network interfaces have names eth0..eth5
+    # (rather than default names - enp0s3..enp0s8)
+    for i in {{0..5}}; do
+        export IFACE_$i=eth$i
+    done
 fi
 
 # create new environment
 ./run_system_test.py run 'system_test.deploy_env' --with-config $CONFIG_NAME
 
 # make snapshot if deployment is successful
-dos.py suspend $ENV_NAME
-dos.py snapshot $ENV_NAME $SNAPSHOT_NAME
-dos.py resume $ENV_NAME
+dos.py suspend ${{ENV_NAME}}
+dos.py snapshot ${{ENV_NAME}} ${{SNAPSHOT_NAME}}
+dos.py resume ${{ENV_NAME}}
