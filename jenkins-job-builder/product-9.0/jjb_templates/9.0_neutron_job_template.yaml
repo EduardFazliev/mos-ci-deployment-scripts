@@ -106,13 +106,13 @@
 
 - project:
     name: VxLAN
-    env_inject_path: /home/jenkins/env_inject
-    iso_dir: /var/www/fuelweb-iso
-    ssl: TRUE
-    nova_quotas: FALSE
-    deploy_timeout: 10000
-    config_path: templates/neutron/vxlan_qos.yaml
-    test_group: Neutron(VxLAN)
+    env_inject_path: "/home/jenkins/env_inject"
+    iso_dir: "/var/www/fuelweb-iso"
+    ssl: "TRUE"
+    nova_quotas: "FALSE"
+    deploy_timeout: "10000"
+    config_path: "templates/neutron/vxlan_qos.yaml"
+    test_group: "Neutron(VxLAN)"
     start_timer: "50 20 * * *"
     node: Slave-srv131
     description: Neutron tests(VxLAN)
