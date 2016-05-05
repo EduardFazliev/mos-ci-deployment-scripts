@@ -120,4 +120,4 @@
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:
-      - '9.0_Neutron_{configuration}'
+      - '9.0_Neutron_{name}'
