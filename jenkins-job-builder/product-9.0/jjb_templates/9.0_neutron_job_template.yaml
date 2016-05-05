@@ -21,7 +21,7 @@
             default: "FALSE"
         - string:
             name: DEPLOYMENT_TIMEOUT
-            default: "10000"
+            default: 10000
         - string:
             name: CONFIG_PATH
             default: '{config_path}'
