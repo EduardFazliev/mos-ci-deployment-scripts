@@ -1,0 +1,78 @@
+- job-template:
+    name: 9.0-{name}_from_template
+    wrappers:
+      - build-name:
+          name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
+
+    builders:
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../../shell_scripts/tox_based_tests.sh
+
+
+    scm:
+        - mos-integration-tests-repository
+    project-type: freestyle
+    defaults: global
+    description: '{description}'
+    disabled: false
+    display-name: '{display-name}'
+    concurrent: true
+    retry-count: 3
+    logrotate:
+      daysToKeep: 30
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+
+    publishers:
+      - email:
+          recipients: '{email_recepients}'
+      - archive:
+          artifacts: 'report.xml'
+          allow-empty: 'true'
+          fingerprint: true
+      - archive:
+          artifacts: 'test.log'
+          allow-empty: 'true'
+          fingerprint: true
+      - junit:
+          results: report.xml
+      - workspace-cleanup:
+          fail-build: false
+      - postbuildscript:
+          script-only-if-succeeded: False
+          builders:
+            - shell: |
+                set +e
+                REPORT_PATH=`cat ./param.pm`
+                sudo mkdir -p "$REPORT_PATH"
+                sudo cp "$REPORT_FILE" "$REPORT_PATH"
+
+
+- project:
+    name: Glance
+    tox_test_name: glance
+    description: 9.0 Glance tests
+    display-name: 9.0 Glance tests /from template/
+    email-recipients: efazliev@mirantis.com
+    jobs:
+      - '9.0-{name}_from_template'
+
+- project:
+    name: Ironic
+    tox_test_name: ironic
+    description: 9.0 Ironic tests
+    display-name: 9.0 Ironic tests /from template/
+    email-recipients: efazliev@mirantis.com
+    jobs:
+      - '9.0-{name}_from_template'
+
+- project:
+    name: Ceilometer
+    tox_test_name: ceilometer
+    description: 9.0 Ceilometer tests
+    display-name: 9.0 Ceilometer tests /from template/
+    email-recipients: efazliev@mirantis.com
+    jobs:
+      - '9.0-{name}_from_template'
