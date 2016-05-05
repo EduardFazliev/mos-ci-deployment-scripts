@@ -1,4 +1,4 @@
--job-template:
+- job-template:
     name: 9.0-Neutron-'{configuration}'
 
     parameters:
