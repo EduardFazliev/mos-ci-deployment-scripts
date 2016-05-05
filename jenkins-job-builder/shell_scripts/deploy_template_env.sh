@@ -60,7 +60,7 @@ echo "SNAPSHOT_NAME=$SNAPSHOT_NAME" >> "$ENV_INJECT_PATH"
 
 # Set fuel QA version
 # https://github.com/openstack/fuel-qa/branches
-FUEL_QA_VER=$FUEL_QA_VER:-'master'
+FUEL_QA_VER=${{FUEL_QA_VER:-'master'}}
 
 V_ENV_DIR="$(pwd)/fuel-devops-venv"
 
