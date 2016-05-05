@@ -1,5 +1,9 @@
 - job-template:
-    name: '9.0_Neutron_{configuration}'
+    name: '9.0_Neutron_{name}'
+
+    wrappers:
+      - build-name:
+          name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
 
     parameters:
         #EnvInject file
@@ -44,10 +48,6 @@
         - string:
             name: MILESTONE
             default: "9.0"
-
-    wrappers:
-      - build-name:
-          name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
 
     builders:
         - shell:
@@ -105,7 +105,7 @@
 
 
 - project:
-    configuration: VxLAN
+    name: VxLAN
     env_inject_path: /home/jenkins/env_inject
     iso_dir: /var/www/fuelweb-iso
     ssl: TRUE
