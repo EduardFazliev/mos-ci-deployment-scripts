@@ -65,8 +65,8 @@
         - shell:
             !include-raw: ../../shell_scripts/testrail_reporter.sh
 
-    triggers:
-        - timed: '{start_timer}'
+    #triggers:
+    #    - timed: '{start_timer}'
 
     defaults: global
     node: '{node}'
@@ -109,7 +109,7 @@
     iso_dir: /var/www/fuelweb-iso
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
-    start_timer: "50 20 * * *"
+    #start_timer: "50 20 * * *"
     node: Slave-srv131
     description: Neutron tests(VxLAN)
     display_name: 9.0_Neutron_VxLAN
