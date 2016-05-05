@@ -1,5 +1,5 @@
 - job-template:
-    name: 9.0-Neutron-'{configuration}'
+    name: '9.0_Neutron_{configuration}'
 
     parameters:
         #EnvInject file
