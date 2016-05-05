@@ -1,0 +1,121 @@
+-job-template:
+    name: 9.0-Neutron-'{configuration}'
+
+    parameters:
+        #EnvInject file
+        - string:
+            name: ENV_INJECT_PATH
+            default: '{env_inject_path}'
+        - string:
+            name: ISO_DIR
+            default: '{iso_dir}'
+        - string:
+            name: DISABLE_SSL
+            default: '{ssl}'
+        - string:
+            name: NOVA_QUOTAS_ENABLED
+            default: '{nova_quotas}'
+        - string:
+            name: DEPLOYMENT_TIMEOUT
+            default: '{deploy_timeout}'
+        - string:
+            name: CONFIG_PATH
+            default: '{config_path}'
+
+        ##### TestRail Parameters #####
+        - string:
+            name: TESTRAIL_TEMPLATE_ALTER
+            default: "FALSE"
+        - string:
+            name: TEST_GROUP
+            default: '{test_group}'
+        - string:
+            name: TESTRAIL_FILE
+            default: "/var/www/test_rail/user.sh"
+        - string:
+            name: REPORT_PREFIX
+            default: "/srv/jenkins/neutron"
+        - string:
+            name: REPORT_FILE
+            default: "report.xml"
+        - string:
+            name: SUITE
+            default: "[9.0][MOSQA] Automated Cloud Testing"
+        - string:
+            name: MILESTONE
+            default: "9.0"
+
+    wrappers:
+      - build-name:
+          name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
+
+    builders:
+        - shell:
+            !include-raw: ../../shell_scripts/env_variables_export.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/deploy_env_from_template.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/pytest_runner.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/testrailt_reporter.sh
+
+    triggers:
+        - timed: '{start_timer}'
+
+    defaults: global
+    node: '{node}'
+    description: '{description}'
+    disabled: false
+    display-name: '{display_name}'
+    concurrent: false
+    retry-count: 3
+    logrotate:
+      daysToKeep: 30
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+
+    publishers:
+      - email:
+          recipients: '{email-recipients}'
+
+      - postbuildscript:
+          script-only-if-succeeded: False
+
+      - archive:
+          artifacts: 'report.xml'
+          allow-empty: 'true'
+          fingerprint: true
+
+      - archive:
+          artifacts: 'test.log'
+          allow-empty: 'true'
+          fingerprint: true
+
+      - junit:
+          results: report.xml
+
+      - workspace-cleanup:
+          fail-build: false
+
+
+- project:
+    configuration: VxLAN
+    env_inject_path: /home/jenkins/env_inject
+    iso_dir: /var/www/fuelweb-iso
+    ssl: TRUE
+    nova_quotas: FALSE
+    deploy_timeout: 10000
+    config_path: templates/neutron/vxlan_qos.yaml
+    test_group: Neutron(VxLAN)
+    start_timer: "50 20 * * *"
+    node: Slave-srv131
+    description: Neutron tests(VxLAN)
+    display_name: 9.0_Neutron_VxLAN
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
