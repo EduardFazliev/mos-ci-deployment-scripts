@@ -1,4 +1,4 @@
-ISO_NAME=`ls "$ISO_DIR"`
+ISO_NAME=`ls {iso_dir}`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
 ISO_PATH="${ISO_DIR}/${ISO_NAME}"
