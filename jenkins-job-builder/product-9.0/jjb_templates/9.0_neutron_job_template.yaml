@@ -63,7 +63,7 @@
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../shell_scripts/testrailt_reporter.sh
+            !include-raw: ../../shell_scripts/testrail_reporter.sh
 
     triggers:
         - timed: '{start_timer}'
