@@ -19,6 +19,11 @@ patch_fuel_qa(){{
     set -e
 }}
 
+
+git clone https://github.com/Mirantis/mos-ci-deployment-scripts.git
+cd mos-ci-deployment-scripts
+git checkout stable/9.0
+
 # exit from shell if error happens
 set -e
 
