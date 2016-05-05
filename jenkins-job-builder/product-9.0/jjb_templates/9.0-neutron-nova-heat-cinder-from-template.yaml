@@ -18,7 +18,7 @@
           name: MOS_VERSION
     builders:
         - shell:
-            !include-raw: ../../../shell_scripts/mos_ci_pytest_testrunner.sh
+            !include-raw: ../../shell_scripts/mos_ci_pytest_testrunner.sh
     scm:
         - mos-integration-tests-repository
     project-type: freestyle

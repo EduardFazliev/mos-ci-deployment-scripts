@@ -8,7 +8,7 @@
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../../shell_scripts/tox_based_tests.sh
+            !include-raw: ../../shell_scripts/tox_based_tests.sh
 
 
     scm:
