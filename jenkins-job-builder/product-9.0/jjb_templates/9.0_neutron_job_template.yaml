@@ -110,7 +110,7 @@
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
     #start_timer: "50 20 * * *"
-    node: Slave-srv131
+    node: Slave-srv130
     description: Neutron tests(VxLAN)
     display_name: 9.0_Neutron_VxLAN
     email-recipients: efazliev@mirantis.net
