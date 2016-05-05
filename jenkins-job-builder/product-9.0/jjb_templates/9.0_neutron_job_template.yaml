@@ -119,3 +119,5 @@
     display_name: 9.0_Neutron_VxLAN
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{configuration}'
