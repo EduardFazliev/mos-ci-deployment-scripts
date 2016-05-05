@@ -4,19 +4,19 @@
 
 
 patch_fuel_qa(){
-    # Check and apply patch to fuel_qa
-    set +e
-    pushd $PWD/fuel-qa
-    file_name=$1
-    patch_file=../fuel_qa_patches/$file_name
-    echo "Check for patch $file_name"
-    git apply --check $patch_file 2> /dev/null
-    if [ $? -eq 0 ]; then
-        echo "Applying patch $file_name"
-        git apply $patch_file
-    fi
-    popd
-    set -e
+# Check and apply patch to fuel_qa
+set +e
+pushd $PWD/fuel-qa
+file_name=$1
+patch_file=../fuel_qa_patches/$file_name
+echo "Check for patch $file_name"
+git apply --check $patch_file 2> /dev/null
+if [ $? -eq 0 ]; then
+echo "Applying patch $file_name"
+git apply $patch_file
+fi
+popd
+set -e
 }
 
 
@@ -32,24 +32,24 @@ git checkout stable/9.0
 
 # Hide trace on jenkins
 if [ -z "$JOB_NAME" ]; then
-    set -o xtrace
+set -o xtrace
 fi
 
 if [ -z "$ISO_PATH" ]; then
-    echo "Please download ISO and define env variable ISO_PATH"
-    exit 1
+echo "Please download ISO and define env variable ISO_PATH"
+exit 1
 fi
 if [ ! -f "$ISO_PATH" ]; then
-    echo "$ISO_PATH is not exists or not a regular file"
-    exit 1
+echo "$ISO_PATH is not exists or not a regular file"
+exit 1
 fi
 
 PWD=$(pwd)
 #CONFIG_PATH=${1:?You should pass a valid path to Yaml tempate as first argument}
 
 if [ ! -f "$CONFIG_PATH" ]; then
-    echo "$CONFIG_PATH is not exists or not a regular file"
-    exit 1
+echo "$CONFIG_PATH is not exists or not a regular file"
+exit 1
 fi
 CONFIG_FOLDER=$(basename $(dirname $CONFIG_PATH))
 CONFIG_FILE=$(basename $CONFIG_PATH)
@@ -82,7 +82,7 @@ echo ""
 
 # Check if folder for virtual env exist
 if [ ! -d "${V_ENV_DIR}" ]; then
-    virtualenv --no-site-packages ${V_ENV_DIR}
+virtualenv --no-site-packages ${V_ENV_DIR}
 fi
 
 source ${V_ENV_DIR}/bin/activate
@@ -90,15 +90,15 @@ pip install -U pip
 
 # Check if fuel-qa folder exist
 if [ ! -d fuel-qa ]; then
-    git clone -b "${FUEL_QA_VER}" https://github.com/openstack/fuel-qa
+git clone -b "${FUEL_QA_VER}" https://github.com/openstack/fuel-qa
 else
-    pushd fuel-qa
-    git clean -f -d -x
-    git checkout -- *
-    git checkout "${FUEL_QA_VER}"
-    git reset --hard
-    git pull
-    popd
+pushd fuel-qa
+git clean -f -d -x
+git checkout -- *
+git checkout "${FUEL_QA_VER}"
+git reset --hard
+git pull
+popd
 fi
 
 patch_fuel_qa qos.patch
@@ -117,11 +117,11 @@ cd fuel-qa
 
 
 if [ "${INTERFACE_MODEL}" == 'virtio' ]; then
-    # Virtio network interfaces have names eth0..eth5
-    # (rather than default names - enp0s3..enp0s8)
-    for i in {0..5}; do
-        export IFACE_$i=eth$i
-    done
+# Virtio network interfaces have names eth0..eth5
+# (rather than default names - enp0s3..enp0s8)
+for i in {0..5}; do
+export IFACE_$i=eth$i
+done
 fi
 
 # create new environment
