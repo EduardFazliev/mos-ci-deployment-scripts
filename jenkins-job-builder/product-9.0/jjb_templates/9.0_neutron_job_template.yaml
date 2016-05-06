@@ -76,8 +76,8 @@
         - shell:
             !include-raw: ../../shell_scripts/template_scripts/testrail_reporter.sh
 
-    #triggers:
-    #    - timed: '{start_timer}'
+    triggers:
+        - timed: '{start_timer}'
 
     defaults: global
     node: '{node}'
