@@ -122,7 +122,7 @@
     env_changer: _vxlan
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
-    start_timer: "0 21 * 12 *"
+    start_timer: "0 21 * * *"
     node: Slave-srv130
     description: Neutron tests(VxLAN)
     display_name: 9.0_Neutron_VxLAN
@@ -138,7 +138,7 @@
     env_changer: _vlan_l3_ha
     config_path: templates/neutron/vlan_l3ha.yaml
     test_group: Neutron(VLAN_L3_HA)
-    start_timer: "0 21 * * *"
+    start_timer: "0 22 * * *"
     node: Slave-srv130
     description: Neutron tests(VLAN_L3_HA)
     display_name: 9.0_Neutron_VLAN_L3_HA
@@ -154,7 +154,7 @@
     env_changer: _vlan_l3_ha
     config_path: templates/neutron/vlan_dvr.yaml
     test_group: Neutron(VLAN_DVR)
-    start_timer: "0 21 * * *"
+    start_timer: "0 23 * * *"
     node: Slave-srv130
     description: Neutron tests(VLAN_DVR)
     display_name: 9.0_Neutron_VLAN_DVR
