@@ -11,7 +11,11 @@ pip install -U pip
 pip install -r requirements.txt
 py.test {test_path} -E "$ENV_NAME" -S "$SNAPSHOT_NAME" -v
 
-cp "REPORT_FILE" ../
+cp "$REPORT_FILE" ../
 cp *.log ../
 
+sudo mkdir -p "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && \
+sudo cp "$REPORT_FILE" "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && \
+sudo cp *.log "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" \
+|| true
 deactivate

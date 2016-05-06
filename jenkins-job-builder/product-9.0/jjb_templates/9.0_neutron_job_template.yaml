@@ -100,7 +100,7 @@
           fingerprint: true
 
       - archive:
-          artifacts: 'test.log'
+          artifacts: '*.log'
           allow-empty: 'true'
           fingerprint: true
 
