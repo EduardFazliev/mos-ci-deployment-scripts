@@ -51,19 +51,21 @@
 
     builders:
         - shell:
-            !include-raw: ../../shell_scripts/env_variables_export.sh
+            !include-raw: ../../shell_scripts/template_scripts/erase_ci_envs.sh
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/env_variables_export.sh
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../shell_scripts/deploy_template_env.sh
+            !include-raw: ../../shell_scripts/template_scripts/deploy_template_env.sh
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../shell_scripts/pytest_runner.sh
+            !include-raw: ../../shell_scripts/template_scripts/pytest_runner.sh
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
-            !include-raw: ../../shell_scripts/testrail_reporter.sh
+            !include-raw: ../../shell_scripts/template_scripts/testrail_reporter.sh
 
     #triggers:
     #    - timed: '{start_timer}'
