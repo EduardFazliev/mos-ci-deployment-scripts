@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash +e
 
 rm -rf mos-integration-tests
 git clone https://github.com/Mirantis/mos-integration-tests.git
@@ -19,3 +19,5 @@ sudo cp "$REPORT_FILE" "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && \
 sudo cp *.log "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" \
 || true
 deactivate
+
+sudo dos.py destroy "$ENV_NAME"

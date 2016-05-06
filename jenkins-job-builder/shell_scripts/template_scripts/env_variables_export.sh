@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash +e
 
 ISO_NAME=`ls "$ISO_DIR"`
 ENV_NAME=MOS_CI_"${{ISO_NAME}}${{ENV_CHANGER}}"

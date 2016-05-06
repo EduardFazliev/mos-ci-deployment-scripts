@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -xe
+#!/usr/bin/env bash +e -x
 
 # This script deploy MirantisOpenStak from templates
 
