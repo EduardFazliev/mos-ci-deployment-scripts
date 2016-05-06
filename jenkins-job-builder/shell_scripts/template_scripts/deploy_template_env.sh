@@ -1,4 +1,4 @@
-#!/usr/bin/env bash +e -x
+#!/usr/bin/env bash +e
 
 # This script deploy MirantisOpenStak from templates
 
@@ -127,3 +127,5 @@ fi
 dos.py suspend ${{ENV_NAME}}
 dos.py snapshot ${{ENV_NAME}} ${{SNAPSHOT_NAME}}
 dos.py resume ${{ENV_NAME}}
+
+exit 0

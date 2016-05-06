@@ -21,3 +21,5 @@ sudo cp *.log "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" \
 deactivate
 
 sudo dos.py destroy "$ENV_NAME"
+
+exit 0

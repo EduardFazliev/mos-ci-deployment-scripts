@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash +e
 
 PREFIX='MOS_CI_'
 
@@ -15,4 +15,6 @@ sudo dos.py erase "$LINE" || true
 fi
 
 done < temp
+
+exit 0
 
