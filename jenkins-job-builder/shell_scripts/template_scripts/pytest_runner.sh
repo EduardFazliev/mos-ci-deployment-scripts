@@ -11,4 +11,7 @@ pip install -U pip
 pip install -r requirements.txt
 py.test {test_path} -E "$ENV_NAME" -S "$SNAPSHOT_NAME" -v
 
+cp "REPORT_FILE" ../
+cp *.log ../
+
 deactivate

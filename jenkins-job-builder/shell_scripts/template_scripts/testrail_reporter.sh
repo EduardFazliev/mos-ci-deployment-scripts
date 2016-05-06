@@ -9,6 +9,7 @@ git clone https://github.com/gdyuldin/testrail_reporter.git
 cd testrail_reporter
 git checkout stable
 python setup.py install
+cd ../
 
 . "$TESTRAIL_FILE"
 
