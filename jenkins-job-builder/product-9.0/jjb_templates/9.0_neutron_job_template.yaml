@@ -117,12 +117,12 @@
 
 - project:
     name: VxLAN
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
-    start_timer: "0 21 * * *"
+    start_timer: "0 21 * 12 *"
     node: Slave-srv130
     description: Neutron tests(VxLAN)
     display_name: 9.0_Neutron_VxLAN
@@ -133,7 +133,7 @@
 
 - project:
     name: VLAN_L3_HA
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_l3_ha
     config_path: templates/neutron/vlan_l3ha.yaml
