@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
 
 PREFIX='MOS_CI_'
 
@@ -8,7 +8,11 @@ sudo dos.py list > temp
 while read -r LINE
 do
 set -e
+
 if [[ "$LINE" == "$PREFIX"* ]]; then
+echo "Erasing ${{LINE}}..."
 sudo dos.py erase "$LINE" || true
 fi
+
 done < temp
+

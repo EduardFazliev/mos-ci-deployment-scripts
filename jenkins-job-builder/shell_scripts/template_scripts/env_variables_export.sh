@@ -1,3 +1,5 @@
+#!/usr/bin/env bash -e
+
 ISO_NAME=`ls "$ISO_DIR"`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`

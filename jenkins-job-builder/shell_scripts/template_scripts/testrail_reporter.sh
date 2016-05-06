@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "$ISO_ID.$SNAPSHOT_NAME" > build-name-setter.info
 
 virtualenv testrail

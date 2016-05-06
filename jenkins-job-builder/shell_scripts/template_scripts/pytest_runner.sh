@@ -1,3 +1,5 @@
+#!/usr/bin/env bash -e
+
 rm -rf mos-integration-tests
 git clone https://github.com/Mirantis/mos-integration-tests.git
 cd mos-integration-tests

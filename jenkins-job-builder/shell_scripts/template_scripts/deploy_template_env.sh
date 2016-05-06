@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -xe
 
 # This script deploy MirantisOpenStak from templates
 
@@ -18,7 +18,6 @@ patch_fuel_qa(){{
     popd
     set -e
 }}
-
 
 git clone https://github.com/Mirantis/mos-ci-deployment-scripts.git
 cd mos-ci-deployment-scripts

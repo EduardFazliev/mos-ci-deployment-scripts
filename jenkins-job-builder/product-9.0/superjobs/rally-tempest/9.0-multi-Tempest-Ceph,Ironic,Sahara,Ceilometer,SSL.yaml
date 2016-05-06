@@ -38,9 +38,9 @@
         - string:
             name: CEPH_ENABLE
             default: "TRUE"
-#        - string:
-#            name: RADOS_ENABLE
-#            default: "TRUE"
+        - string:
+            name: RADOS_ENABLE
+            default: "TRUE"
         - string:
             name: CEPH_GLANCE_ENABLE
             default: "TRUE"
@@ -61,17 +61,17 @@
             name: MONGO_ENABLE
             default: "TRUE"
 
-#        - string:
-#            name: IRONIC_ENABLE
-#            default: "TRUE"
+        - string:
+            name: IRONIC_ENABLE
+            default: "TRUE"
         - string:
             name: NOVA_QUOTAS_ENABLED
             default: "TRUE"
 
         # Node parameters
-#        - string:
-#            name: IRONICS_COUNT
-#            default: "1"
+        - string:
+            name: IRONICS_COUNT
+            default: "1"
         - string:
             name: CONTROLLERS_COUNT
             default: "3"
