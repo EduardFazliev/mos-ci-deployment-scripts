@@ -149,7 +149,7 @@
 
 - project:
     name: VLAN_DVR
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_l3_ha
     config_path: templates/neutron/vlan_dvr.yaml
