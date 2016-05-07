@@ -72,8 +72,8 @@
         - shell:
             !include-raw: ../../shell_scripts/template_scripts/testrail_reporter.sh
 
-    #triggers:
-    #    - timed: '{start_timer}'
+    triggers:
+        - timed: '{start_timer}'
 
     defaults: global
     node: '{node}'
@@ -119,7 +119,7 @@
     test_group: Ceilometer
     report_prefix: /srv/jenkins/ceilometer
     report_file: report.xml
-    #start_timer: "50 20 * * *"
+    start_timer: "0 21 * * *"
     node: tox-based
     description: Ceilometer tests
     display_name: 9.0_Ceilometer_t
@@ -136,7 +136,7 @@
     test_group: Ironic
     report_prefix: /srv/jenkins/ironic
     report_file: report.xml
-    #start_timer: "50 20 * * *"
+    start_timer: "10 21 * * *"
     node: tox-based
     description: Ironic tests
     display_name: 9.0_Ironic_t
@@ -153,7 +153,7 @@
     test_group: Glance(Swift)
     report_prefix: /srv/jenkins/glance_swift/
     report_file: report.xml
-    #start_timer: "50 20 * * *"
+    start_timer: "20 21 * * *"
     node: tox-based
     description: Glance Swift tests
     display_name: 9.0_Glance(Swift)_t
@@ -170,7 +170,7 @@
     test_group: Glance(Ceph)
     report_prefix: /srv/jenkins/glance_ceph/
     report_file: report.xml
-    #start_timer: "50 20 * * *"
+    start_timer: "30 21 * * *"
     node: tox-based
     description: Glance Ceph tests
     display_name: 9.0_Glance(Ceph)_t

@@ -151,7 +151,7 @@
     name: VLAN_DVR
     weight: 2
     iso_dir: /var/www/fuelweb-iso
-    env_changer: _vlan_l3_ha
+    env_changer: _vlan_dvr
     config_path: templates/neutron/vlan_dvr.yaml
     test_group: Neutron(VLAN_DVR)
     start_timer: "0 23 * * *"
