@@ -3,7 +3,6 @@
 
 patch_fuel_qa(){{
     # Check and apply patch to fuel_qa
-    set +e
     pushd $PWD/fuel-qa
     file_name=$1
     patch_file=../fuel_qa_patches/$file_name
@@ -14,7 +13,7 @@ patch_fuel_qa(){{
         git apply $patch_file
     fi
     popd
-    set -e
+
 }}
 
 git clone https://github.com/Mirantis/mos-ci-deployment-scripts.git
