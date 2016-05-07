@@ -13,7 +13,7 @@
         #EnvInject file
         - string:
             name: ENV_INJECT_PATH
-            default: "/home/jenkins/env_inject.properties"
+            default: '{env_inject_file}'
 
         ##### Environment parameters #####
         - string:
@@ -120,6 +120,7 @@
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan
+    env_inject_file: env_inject_vxlan.properties
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
     start_timer: "0 21 * * *"
@@ -136,6 +137,7 @@
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_l3_ha
+    env_inject_file: env_inject_vlan_l3_ha.properties
     config_path: templates/neutron/vlan_l3ha.yaml
     test_group: Neutron(VLAN,L3_HA)
     start_timer: "0 22 * * *"
@@ -152,6 +154,7 @@
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_dvr
+    env_inject_file: env_inject_vlan_dvr.properties
     config_path: templates/neutron/vlan_dvr.yaml
     test_group: Neutron(VLAN,DVR)
     start_timer: "0 23 * * *"
@@ -168,6 +171,7 @@
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan_l2_pop
+    env_inject_file: env_inject_vxlan_l2_pop.properties
     config_path: templates/neutron/vxlan_l2pop.yaml
     test_group: Neutron(VxLAN,L2_POP)
     start_timer: "0 23 * * *"

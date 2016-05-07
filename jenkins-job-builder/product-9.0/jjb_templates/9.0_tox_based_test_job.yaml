@@ -13,7 +13,7 @@
         #EnvInject file
         - string:
             name: ENV_INJECT_PATH
-            default: "/home/jenkins/env_inject.properties"
+            default: '{env_inject_file}'
 
         ##### Environment parameters #####
         - string:
@@ -138,6 +138,7 @@
     weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _ironic
+    env_inject_file: env_inject_ironic.properties
     config_path: templates/ironic/default.yaml
     test_group: Ironic
     report_prefix: /srv/jenkins/ironic
@@ -156,6 +157,7 @@
     weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_swift
+    env_inject_file: env_inject_glance_swift.properties
     config_path: templates/glance/swift.yaml
     test_group: Glance(Swift)
     report_prefix: /srv/jenkins/glance_swift/
@@ -174,6 +176,7 @@
     weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_ceph
+    env_inject_file: env_inject_glance_ceph.properties
     config_path: templates/glance/ceph.yaml
     test_group: Glance(Ceph)
     report_prefix: /srv/jenkins/glance_ceph/
