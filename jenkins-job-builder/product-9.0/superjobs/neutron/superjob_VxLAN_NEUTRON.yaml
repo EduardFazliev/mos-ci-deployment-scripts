@@ -47,7 +47,7 @@
     #####
     node: Slave-srv131
     description: 'VxLAN NEUTRON tests'
-    disabled: false
+    disabled: true
     display-name: '9.0-NEUTRON:VxLAN'
     concurrent: false
     retry-count: 3

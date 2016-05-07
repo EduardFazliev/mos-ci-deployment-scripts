@@ -1,0 +1,180 @@
+- job-template:
+    name: '9.0_{name}_t'
+
+    wrappers:
+      - build-name:
+          name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
+
+    parameters:
+        #EnvInject file
+        - string:
+            name: ENV_INJECT_PATH
+            default: "/home/jenkins/env_inject.properties"
+
+        ##### Environment parameters #####
+        - string:
+            name: ISO_DIR
+            default: "/var/www/fuelweb-iso"
+        - string:
+            name: ENV_CHANGER
+            default: '{env_changer}'
+        - string:
+            name: DISABLE_SSL
+            default: "TRUE"
+        - string:
+            name: NOVA_QUOTAS_ENABLED
+            default: "FALSE"
+        - string:
+            name: DEPLOYMENT_TIMEOUT
+            default: "10000"
+        - string:
+            name: CONFIG_PATH
+            default: '{config_path}'
+
+        ##### TestRail Parameters #####
+        - string:
+            name: TESTRAIL_TEMPLATE_ALTER
+            default: "FALSE"
+        - string:
+            name: TEST_GROUP
+            default: '{test_group}'
+        - string:
+            name: TESTRAIL_FILE
+            default: "/var/www/test_rail/user.sh"
+        - string:
+            name: REPORT_PREFIX
+            default: '{report_prefix}'
+        - string:
+            name: REPORT_FILE
+            default: '{report_file}'
+        - string:
+            name: SUITE
+            default: "[9.0][MOSQA] Automated Cloud Testing"
+        - string:
+            name: MILESTONE
+            default: "9.0"
+
+    builders:
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/erase_ci_envs.sh
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/env_variables_export.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/deploy_template_env.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/tox_based_test_runner.sh
+        - inject:
+            properties-file: "$ENV_INJECT_PATH"
+        - shell:
+            !include-raw: ../../shell_scripts/template_scripts/testrail_reporter.sh
+
+    #triggers:
+    #    - timed: '{start_timer}'
+
+    defaults: global
+    node: '{node}'
+    description: '{description}'
+    disabled: false
+    display-name: '{display_name}'
+    concurrent: false
+    retry-count: 3
+    logrotate:
+      daysToKeep: 30
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+
+    publishers:
+      - email:
+          recipients: '{email-recipients}'
+
+      - postbuildscript:
+          script-only-if-succeeded: False
+
+      - archive:
+          artifacts: 'report.xml'
+          allow-empty: 'true'
+          fingerprint: true
+
+      - archive:
+          artifacts: '*.log'
+          allow-empty: 'true'
+          fingerprint: true
+
+      - junit:
+          results: report.xml
+
+      - workspace-cleanup:
+          fail-build: false
+
+
+- project:
+    name: Ceilometer
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _ceilometer
+    config_path: templates/ceilometer/default.yaml
+    test_group: Ceilometer
+    report_prefix: /srv/jenkins/ceilometer
+    report_file: report.xml
+    #start_timer: "50 20 * * *"
+    node: tox-based
+    description: Ceilometer tests
+    display_name: 9.0_Ceilometer_t
+    email-recipients: efazliev@mirantis.net
+    tox_test_name: ceilometer
+    jobs:
+      - '9.0_{name}_t'
+
+- project:
+    name: Ironic
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _ironic
+    config_path: templates/ironic/default.yaml
+    test_group: Ironic
+    report_prefix: /srv/jenkins/ironic
+    report_file: report.xml
+    #start_timer: "50 20 * * *"
+    node: tox-based
+    description: Ironic tests
+    display_name: 9.0_Ironic_t
+    email-recipients: efazliev@mirantis.net
+    tox_test_name: ironic
+    jobs:
+      - '9.0_{name}_t'
+
+- project:
+    name: Glance_Swift
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _glance_swift
+    config_path: templates/glance/swift.yaml
+    test_group: Glance(Swift)
+    report_prefix: /srv/jenkins/glance_swift/
+    report_file: report.xml
+    #start_timer: "50 20 * * *"
+    node: tox-based
+    description: Glance Swift tests
+    display_name: 9.0_Glance(Swift)_t
+    email-recipients: efazliev@mirantis.net
+    tox_test_name: glance
+    jobs:
+      - '9.0_{name}_t'
+
+- project:
+    name: Glance_Ceph
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _glance_ceph
+    config_path: templates/glance/ceph.yaml
+    test_group: Glance(Ceph)
+    report_prefix: /srv/jenkins/glance_ceph/
+    report_file: report.xml
+    #start_timer: "50 20 * * *"
+    node: tox-based
+    description: Glance Ceph tests
+    display_name: 9.0_Glance(Ceph)_t
+    email-recipients: efazliev@mirantis.net
+    tox_test_name: glance
+    jobs:
+      - '9.0_{name}_t'

@@ -11,6 +11,8 @@
             SNAPSHOT_NAME=ha_deploy_VLAN_CINDER
             TEST_TYPE=NEUTRON
             SEGMENT_TYPE=VLAN
+            # Until bug with Murano is resolved
+            # MURANO_ENABLE=TRUE
             DISABLE_SSL=TRUE
             CONTROLLERS_COUNT=1
             COMPUTES_COUNT=2

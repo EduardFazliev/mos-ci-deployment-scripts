@@ -21,20 +21,14 @@
           name: PY_VENV
           default: "jvenv"
     builders:
-        - shell: |
-            sudo pip install python-jenkins
-        - python:
-            !include-raw: ../python_scripts/9.0_init_env_for_job/init_env.py
-        - inject:
-            properties-file: "$ENV_INJECT_PATH"
         - shell:
             !include-raw: ../shell_scripts/get_swarm_iso.sh
 
     project-type: freestyle
     defaults: global
     node: master
-#    triggers:
-#        - timed: "45 20 * * *"
+    triggers:
+        - timed: "50 20 * * *"
 
     description: 'Loads Swarm ISO to all slaves.'
     disabled: false

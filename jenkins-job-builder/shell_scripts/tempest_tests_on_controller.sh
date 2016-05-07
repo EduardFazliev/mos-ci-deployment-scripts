@@ -26,6 +26,13 @@ sed -i 's|rally verify install --source /var/lib/tempest --no-tempest-venv \
 sed -i 's|FROM rallyforge/rally:latest|FROM rallyforge/rally:0.4.0|g' \
        rally-tempest/latest/Dockerfile
 
+sed -i '/RUN git clone/d' rally-tempest/latest/Dockerfile
+sed -i '/pip install -r tempest/d' rally-tempest/latest/Dockerfile
+sed -i '/mv tempest/d' rally-tempest/latest/Dockerfile
+
+sed -i '8i\RUN git clone https://git.openstack.org/openstack/tempest &&  cd tempest && git checkout 63cb9a3718f394c9da8e0cc04b170ca2a8196ec2 && cd ../ && pip install -r tempest/requirements.txt -r tempest/test-requirements.txt && mv tempest/ /var/lib/' rally-tempest/latest/Dockerfile
+
+
 ##### Generating py script to get IP of admin node #####
 git clone https://github.com/Mirantis/mos-integration-tests
 cd mos-integration-tests
@@ -151,7 +158,12 @@ echo 'echo "build_timeout = 300" >> $file' >> ssh_scr.sh
 echo 'echo "storage_protocol = iSCSI" >> $file' >> ssh_scr.sh
 fi
 
+if [[ "$CEPH_RADOS" == 'TRUE' ]]; then
+echo 'docker exec "$DOCK_ID" bash -c "wget https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/product-9.0/superjobs/rally-tempest/list" ' >> ssh_scr.sh
+echo 'docker exec "$DOCK_ID" bash -c "source /home/rally/openrc && rally verify start --tests-file list --concurrency 1"' >> ssh_scr.sh
+else
 echo 'docker exec "$DOCK_ID" bash -c "source /home/rally/openrc && rally verify start --system-wide --concurrency 1"' >> ssh_scr.sh
+fi
 
 echo 'docker exec "$DOCK_ID" bash -c "rally verify results --json --output-file output.json" ' >> ssh_scr.sh
 echo 'docker exec "$DOCK_ID" bash -c "rm -rf rally_json2junit && git clone https://github.com/EduardFazliev/rally_json2junit.git && python rally_json2junit/rally_json2junit/results_parser.py output.json" ' >> ssh_scr.sh

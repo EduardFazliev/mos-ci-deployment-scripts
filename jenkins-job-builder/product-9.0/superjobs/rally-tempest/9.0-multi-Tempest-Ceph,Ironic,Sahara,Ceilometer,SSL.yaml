@@ -108,7 +108,7 @@
             default: "TRUE"
         - string:
             name: TEST_GROUP
-            default: "Tempest (Ceph,SSL,DVR,Sahara,Ceilometer,Ironic)"
+            default: "Tempest (Ceph,SSL,DVR,Sahara,Ceilometer)"
 
         - string:
             name: SUITE
