@@ -100,7 +100,7 @@
     defaults: global
     node: Slave-srv150
     description: 'Glance tests(Ceph)'
-    disabled: false
+    disabled: true
     display-name: '(9.0)(multi)Glance Tests(Ceph)'
     concurrent: false
     retry-count: 3

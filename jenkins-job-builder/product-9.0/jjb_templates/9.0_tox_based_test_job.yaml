@@ -117,7 +117,7 @@
 
 - project:
     name: Ceilometer
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _ceilometer
     env_inject_file: env_inject_ceilometer.properties
@@ -126,7 +126,7 @@
     report_prefix: /srv/jenkins/ceilometer
     report_file: report.xml
     start_timer: "0 21 * * *"
-    node: tox-based
+    node: single_template
     description: Ceilometer tests
     display_name: 9.0_Ceilometer_t
     email-recipients: efazliev@mirantis.net
@@ -136,7 +136,7 @@
 
 - project:
     name: Ironic
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _ironic
     env_inject_file: env_inject_ironic.properties
@@ -144,8 +144,8 @@
     test_group: Ironic
     report_prefix: /srv/jenkins/ironic
     report_file: report.xml
-    start_timer: "10 21 * * *"
-    node: tox-based
+    start_timer: "0 21 * * *"
+    node: single_template
     description: Ironic tests
     display_name: 9.0_Ironic_t
     email-recipients: efazliev@mirantis.net
@@ -155,7 +155,7 @@
 
 - project:
     name: Glance_Swift
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_swift
     env_inject_file: env_inject_glance_swift.properties
@@ -163,8 +163,8 @@
     test_group: Glance(Swift)
     report_prefix: /srv/jenkins/glance_swift/
     report_file: report.xml
-    start_timer: "20 21 * * *"
-    node: tox-based
+    start_timer: "0 21 * * *"
+    node: single_template
     description: Glance Swift tests
     display_name: 9.0_Glance(Swift)_t
     email-recipients: efazliev@mirantis.net
@@ -174,7 +174,7 @@
 
 - project:
     name: Glance_Ceph
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_ceph
     env_inject_file: env_inject_glance_ceph.properties
@@ -182,8 +182,8 @@
     test_group: Glance(Ceph)
     report_prefix: /srv/jenkins/glance_ceph/
     report_file: report.xml
-    start_timer: "30 21 * * *"
-    node: tox-based
+    start_timer: "0 21 * * *"
+    node: single_template
     description: Glance Ceph tests
     display_name: 9.0_Glance(Ceph)_t
     email-recipients: efazliev@mirantis.net

@@ -117,14 +117,14 @@
 
 - project:
     name: VxLAN
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan
     env_inject_file: env_inject_vxlan.properties
     config_path: templates/neutron/vxlan_qos.yaml
     test_group: Neutron(VxLAN)
-    start_timer: "0 21 * * *"
-    node: neutron
+    start_timer: "0 22 * * *"
+    node: single_template
     description: Neutron tests(VxLAN)
     display_name: 9.0_Neutron_VxLAN
     email-recipients: efazliev@mirantis.net
@@ -134,14 +134,14 @@
 
 - project:
     name: VLAN_L3_HA
-    weight: 1
+    weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_l3_ha
     env_inject_file: env_inject_vlan_l3_ha.properties
     config_path: templates/neutron/vlan_l3ha.yaml
     test_group: Neutron(VLAN,L3_HA)
     start_timer: "0 22 * * *"
-    node: neutron
+    node: single_template
     description: Neutron(VLAN,L3_HA)
     display_name: 9.0_Neutron_VLAN_L3_HA
     email-recipients: efazliev@mirantis.net
@@ -157,8 +157,8 @@
     env_inject_file: env_inject_vlan_dvr.properties
     config_path: templates/neutron/vlan_dvr.yaml
     test_group: Neutron(VLAN,DVR)
-    start_timer: "0 23 * * *"
-    node: neutron
+    start_timer: "0 22 * * *"
+    node: single_template
     description: Neutron tests(VLAN,DVR)
     display_name: 9.0_Neutron_VLAN_DVR
     email-recipients: efazliev@mirantis.net
@@ -174,8 +174,8 @@
     env_inject_file: env_inject_vxlan_l2_pop.properties
     config_path: templates/neutron/vxlan_l2pop.yaml
     test_group: Neutron(VxLAN,L2_POP)
-    start_timer: "0 23 * * *"
-    node: neutron
+    start_timer: "0 22 * * *"
+    node: single_template
     description: Neutron tests(VxLAN,L2_POP)
     display_name: 9.0_Neutron_VLAN_L2_POP
     email-recipients: efazliev@mirantis.net

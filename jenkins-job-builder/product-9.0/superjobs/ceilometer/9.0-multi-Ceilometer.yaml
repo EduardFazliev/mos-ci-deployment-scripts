@@ -98,7 +98,7 @@
     defaults: global
     node: Slave-srv150
     description: 'Ceilometer'
-    disabled: false
+    disabled: true
     display-name: '9.0-multi-Ceilometer'
     concurrent: false
     retry-count: 3

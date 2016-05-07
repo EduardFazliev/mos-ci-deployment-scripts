@@ -46,7 +46,7 @@
     #node: Slave-srv134
     node: Slave-srv131
     description: 'VxLAN+L2_POP NEUTRON tests'
-    disabled: false
+    disabled: true
     display-name: '9.0-NEUTRON:VxLAN+L2_POP'
     concurrent: false
     retry-count: 3

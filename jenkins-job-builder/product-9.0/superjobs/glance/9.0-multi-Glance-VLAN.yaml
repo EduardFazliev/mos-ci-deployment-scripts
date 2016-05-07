@@ -97,7 +97,7 @@
     defaults: global
     node: Slave-srv150
     description: 'Glance tests(VLAN)'
-    disabled: false
+    disabled: true
     display-name: '(9.0)(multi)Glance Tests(VLAN)'
     concurrent: false
     retry-count: 3
