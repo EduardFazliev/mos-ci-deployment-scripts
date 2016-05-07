@@ -137,10 +137,10 @@
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_l3_ha
     config_path: templates/neutron/vlan_l3ha.yaml
-    test_group: Neutron(VLAN_L3_HA)
+    test_group: Neutron(VLAN,L3_HA)
     start_timer: "0 22 * * *"
     node: Slave-srv130
-    description: Neutron tests(VLAN_L3_HA)
+    description: Neutron(VLAN,L3_HA)
     display_name: 9.0_Neutron_VLAN_L3_HA
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
@@ -153,11 +153,27 @@
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vlan_dvr
     config_path: templates/neutron/vlan_dvr.yaml
-    test_group: Neutron(VLAN_DVR)
+    test_group: Neutron(VLAN,DVR)
     start_timer: "0 23 * * *"
     node: Slave-srv130
-    description: Neutron tests(VLAN_DVR)
+    description: Neutron tests(VLAN,DVR)
     display_name: 9.0_Neutron_VLAN_DVR
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{name}'
+
+- project:
+    name: VxAN_L2_POP
+    weight: 2
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _vxlan_l2_pop
+    config_path: templates/neutron/vxlan_l2pop.yaml
+    test_group: Neutron(VxLAN,L2_POP)
+    start_timer: "0 23 * * *"
+    node: Slave-srv130
+    description: Neutron tests(VxLAN,L2_POP)
+    display_name: 9.0_Neutron_VLAN_L2_POP
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:

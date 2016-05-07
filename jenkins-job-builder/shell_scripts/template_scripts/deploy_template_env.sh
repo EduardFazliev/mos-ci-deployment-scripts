@@ -1,6 +1,4 @@
-set +e
-
-# This script deploy MirantisOpenStak from templates
+# This script deploy MirantisOpenStack from templates
 
 
 patch_fuel_qa(){{
@@ -23,8 +21,8 @@ git clone https://github.com/Mirantis/mos-ci-deployment-scripts.git
 cd mos-ci-deployment-scripts
 git checkout stable/9.0
 
-# exit from shell if error happens
-set -e
+# Not exiting from shell if error happens
+set +e
 
 # Hide trace on jenkins
 if [ -z "$JOB_NAME" ]; then
