@@ -5,6 +5,10 @@
       - build-name:
           name: ${{BUILD_NUMBER}}.${{FILE,path="build-name-setter.info"}}
 
+    properties:
+      - heavy-job:
+          weight: '{weight}'
+
     parameters:
         #EnvInject file
         - string:
@@ -113,6 +117,7 @@
 
 - project:
     name: Ceilometer
+    weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _ceilometer
     config_path: templates/ceilometer/default.yaml
@@ -130,6 +135,7 @@
 
 - project:
     name: Ironic
+    weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _ironic
     config_path: templates/ironic/default.yaml
@@ -147,6 +153,7 @@
 
 - project:
     name: Glance_Swift
+    weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_swift
     config_path: templates/glance/swift.yaml
@@ -164,6 +171,7 @@
 
 - project:
     name: Glance_Ceph
+    weight: 1
     iso_dir: /var/www/fuelweb-iso
     env_changer: _glance_ceph
     config_path: templates/glance/ceph.yaml

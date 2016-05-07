@@ -1,5 +1,3 @@
-#!/usr/bin/env bash +e
-
 PREFIX='MOS_CI_'
 
 echo 'Trying to erase all MOS_CI environments...'
@@ -15,6 +13,3 @@ sudo dos.py erase "$LINE" || true
 fi
 
 done < temp
-
-exit 0
-
