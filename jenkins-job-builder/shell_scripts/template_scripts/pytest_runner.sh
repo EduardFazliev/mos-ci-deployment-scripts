@@ -4,6 +4,8 @@ rm -rf mos-integration-tests
 git clone https://github.com/Mirantis/mos-integration-tests.git
 cd mos-integration-tests
 
+sudo dos.py revert-resume "$ENV_NAME" "$SNAPSHOT_NAME"
+
 virtualenv tests
 . tests/bin/activate
 
