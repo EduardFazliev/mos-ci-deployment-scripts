@@ -114,24 +114,6 @@
       - workspace-cleanup:
           fail-build: false
 
-
-- project:
-    name: VxLAN
-    weight: 2
-    iso_dir: /var/www/fuelweb-iso
-    env_changer: _vxlan
-    env_inject_file: env_inject_vxlan.properties
-    config_path: templates/neutron/vxlan_qos.yaml
-    test_group: Neutron(VxLAN)
-    start_timer: "0 22 * * *"
-    node: single_template
-    description: Neutron tests(VxLAN)
-    display_name: 9.0_Neutron_VxLAN
-    email-recipients: efazliev@mirantis.net
-    test_path: mos_tests/neutron
-    jobs:
-      - '9.0_Neutron_{name}'
-
 - project:
     name: VLAN_L3_HA
     weight: 2
@@ -167,6 +149,23 @@
       - '9.0_Neutron_{name}'
 
 - project:
+    name: VxLAN
+    weight: 2
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _vxlan
+    env_inject_file: env_inject_vxlan.properties
+    config_path: templates/neutron/vxlan_qos.yaml
+    test_group: Neutron(VxLAN)
+    start_timer: "0 22 * * *"
+    node: single_template
+    description: Neutron tests(VxLAN)
+    display_name: 9.0_Neutron_VxLAN
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{name}'
+
+- project:
     name: VxAN_L2_POP
     weight: 2
     iso_dir: /var/www/fuelweb-iso
@@ -178,6 +177,40 @@
     node: single_template
     description: Neutron tests(VxLAN,L2_POP)
     display_name: 9.0_Neutron_VLAN_L2_POP
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{name}'
+
+- project:
+    name: VxAN_L2_POP_DVR
+    weight: 2
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _vxlan_l2_pop_dvr
+    env_inject_file: env_inject_vxlan_l2_pop_dvr.properties
+    config_path: templates/neutron/vxlan_l2pop_dvr.yaml
+    test_group: Neutron(VxLAN,L2_POP,DVR)
+    start_timer: "0 22 * * *"
+    node: single_template
+    description: Neutron tests(VxLAN,L2_POP,DVR)
+    display_name: 9.0_Neutron_VLAN_L2_POP_DVR
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{name}'
+
+- project:
+    name: VxAN_L2_POP_L3_HA
+    weight: 2
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _vxlan_l2_pop_l3_ha
+    env_inject_file: env_inject_vxlan_l2_pop_l3_ha.properties
+    config_path: templates/neutron/vxlan_l2pop_l3_ha.yaml
+    test_group: Neutron(VxLAN,L2_POP,L3_HA)
+    start_timer: "0 22 * * *"
+    node: single_template
+    description: Neutron tests(VxLAN,L2_POP,L3_HA)
+    display_name: 9.0_Neutron_VLAN_L2_POP_L3_HA
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:
