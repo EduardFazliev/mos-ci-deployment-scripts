@@ -115,6 +115,23 @@
           fail-build: false
 
 - project:
+    name: VLAN
+    weight: 2
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _vlan
+    env_inject_file: env_inject_vlan.properties
+    config_path: templates/neutron/vlan_qos.yaml
+    test_group: Neutron(VLAN)
+    start_timer: "0 21 * * *"
+    node: Slave-7774
+    description: Neutron(VLAN)
+    display_name: 9.0_Neutron_VLAN
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/neutron
+    jobs:
+      - '9.0_Neutron_{name}'
+
+- project:
     name: VLAN_L3_HA
     weight: 2
     iso_dir: /var/www/fuelweb-iso
