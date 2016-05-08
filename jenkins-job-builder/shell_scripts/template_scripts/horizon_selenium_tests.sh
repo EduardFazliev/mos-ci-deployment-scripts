@@ -1,5 +1,7 @@
 set +e
 
+sudo dos.py revert-resume "$ENV_NAME" "$SNAPSHOT_NAME"
+
 git clone https://github.com/Mirantis/mos-horizon.git
 cd mos-horizon
 git checkout stable/mitaka
@@ -27,7 +29,6 @@ sudo mkdir -p "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && \
 sudo cp "$REPORT_FILE" "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" && \
 sudo cp *.log "$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME" \
 || true
-deactivate
 
 sudo dos.py destroy "$ENV_NAME"
 

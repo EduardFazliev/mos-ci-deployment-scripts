@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+set -x
 
 echo "$ISO_ID.$SNAPSHOT_NAME" > build-name-setter.info
 
