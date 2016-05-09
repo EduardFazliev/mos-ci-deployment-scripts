@@ -193,7 +193,7 @@
     start_timer: "0 22 * * *"
     node: single_template
     description: Neutron tests(VxLAN,L2_POP)
-    display_name: 9.0_Neutron_VLAN_L2_POP
+    display_name: 9.0_Neutron_VxLAN_L2_POP
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:
@@ -210,7 +210,7 @@
     start_timer: "0 22 * * *"
     node: single_template
     description: Neutron tests(VxLAN,L2_POP,DVR)
-    display_name: 9.0_Neutron_VLAN_L2_POP_DVR
+    display_name: 9.0_Neutron_VxLAN_L2_POP_DVR
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:
@@ -227,7 +227,7 @@
     start_timer: "0 22 * * *"
     node: single_template
     description: Neutron tests(VxLAN,L2_POP,L3_HA)
-    display_name: 9.0_Neutron_VLAN_L2_POP_L3_HA
+    display_name: 9.0_Neutron_VxLAN_L2_POP_L3_HA
     email-recipients: efazliev@mirantis.net
     test_path: mos_tests/neutron
     jobs:
