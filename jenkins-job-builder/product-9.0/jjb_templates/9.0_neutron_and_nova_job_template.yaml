@@ -222,7 +222,7 @@
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan_l2_pop_l3_ha
     env_inject_file: env_inject_vxlan_l2_pop_l3_ha.properties
-    config_path: templates/neutron/vxlan_l2pop_l3_ha.yaml
+    config_path: templates/neutron/vxlan_l2pop_l3ha.yaml
     test_group: Neutron(VxLAN,L2_POP,L3_HA)
     start_timer: "0 22 * * *"
     node: single_template
