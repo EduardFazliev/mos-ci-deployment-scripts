@@ -183,7 +183,7 @@
       - '9.0_Neutron_{name}'
 
 - project:
-    name: VxAN_L2_POP
+    name: VxLAN_L2_POP
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan_l2_pop
@@ -200,7 +200,7 @@
       - '9.0_Neutron_{name}'
 
 - project:
-    name: VxAN_L2_POP_DVR
+    name: VxLAN_L2_POP_DVR
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan_l2_pop_dvr
@@ -217,7 +217,7 @@
       - '9.0_Neutron_{name}'
 
 - project:
-    name: VxAN_L2_POP_L3_HA
+    name: VxLAN_L2_POP_L3_HA
     weight: 2
     iso_dir: /var/www/fuelweb-iso
     env_changer: _vxlan_l2_pop_l3_ha
