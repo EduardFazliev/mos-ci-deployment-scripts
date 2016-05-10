@@ -103,7 +103,7 @@
           fingerprint: true
 
       - archive:
-          artifacts: 'openstack_dashboard/test/integration_tests/test_reports/**'
+          artifacts: 'mos-horizon/openstack_dashboard/test/integration_tests/test_reports/**'
           allow-empty: 'true'
           fingerprint: true
 
