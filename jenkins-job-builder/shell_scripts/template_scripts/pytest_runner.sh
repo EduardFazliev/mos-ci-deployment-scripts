@@ -11,6 +11,7 @@ virtualenv tests
 
 pip install -U pip
 pip install -r requirements.txt
+printenv || true
 py.test {test_path} -E "$ENV_NAME" -S "$SNAPSHOT_NAME" -v
 
 cp "$REPORT_FILE" ../

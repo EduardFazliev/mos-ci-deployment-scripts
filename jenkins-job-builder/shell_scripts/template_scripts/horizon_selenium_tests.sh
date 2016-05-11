@@ -17,6 +17,8 @@ pip install -r requirements.txt -r test-requirements.txt
 
 export DASHBOARD_URL='http://10.109.4.3/horizon'
 
+printenv || true
+
 ./run_tests.sh -N --integration --selenium-headless --skip-new-design --with-xunit --xunit-file=report.xml
 
 deactivate
