@@ -3,7 +3,7 @@ SSH_OPTS='-o UserKnownHostsFile=/dev/null \
           -o StrictHostKeyChecking=no'
 ##### Definig common job parameters #####
 ISO_NAME=`ls "$ISO_DIR"`
-ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+ISO_ID=`echo "$ISO_NAME" | cut -f4 -d-`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 SNAPSHOT=`echo $SNAPSHOT_NAME | sed 's/ha_deploy_//'`
 
