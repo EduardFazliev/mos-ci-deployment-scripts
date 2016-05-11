@@ -133,7 +133,7 @@ def get_last_successful(connection, iso_job):
 def main():
     jenkins_server = os.environ.get('JENKINS_PRODUCT_SERVER',
                                     'https://product-ci.infra.mirantis.net')
-    iso_job = os.environ.get('JOB_WITH_ISO', '9.0-mos')
+    iso_job = os.environ.get('JOB_WITH_ISO', '9.0-mos.all')
     test_job = os.environ.get('TEST_JOB', '9.0-mos.test_all')
     connection = jenkins.Jenkins(jenkins_server)
 
