@@ -29,7 +29,7 @@ fi
 
 if [[ "$TESTRAIL_TEMPLATE_ALTER" == 'TRUE' ]] ;
 then
-report -v --testrail-plan-name "9.0 mos iso \#$ISO_ID" --env-description "$TEST_GROUP" --testrail-url  "$TESTRAIL_URL" --testrail-user  "$TESTRAIL_USER" --testrail-password "$TESTRAIL_PASSWORD" --testrail-project "$TESTRAIL_PROJECT" --testrail-milestone "$TESTRAIL_MILESTONE" --testrail-suite "$TESTRAIL_SUITE" --test-results-link "$BUILD_URL" "$REPORT_FILE" --testrail-name-template "{{custom_test_group}}.{{title}}" --xunit-name-template "{{classname}}.{{methodname}}"
+report -v --testrail-plan-name "9.0 mos iso #$ISO_ID" --env-description "$TEST_GROUP" --testrail-url  "$TESTRAIL_URL" --testrail-user  "$TESTRAIL_USER" --testrail-password "$TESTRAIL_PASSWORD" --testrail-project "$TESTRAIL_PROJECT" --testrail-milestone "$TESTRAIL_MILESTONE" --testrail-suite "$TESTRAIL_SUITE" --test-results-link "$BUILD_URL" "$REPORT_FILE" --testrail-name-template "{{custom_test_group}}.{{title}}" --xunit-name-template "{{classname}}.{{methodname}}"
 else
 report -v --iso-id "$ISO_ID" --env-description "$TEST_GROUP" --testrail-url  "$TESTRAIL_URL" --testrail-user  "$TESTRAIL_USER" --testrail-password "$TESTRAIL_PASSWORD" --testrail-project "$TESTRAIL_PROJECT" --testrail-milestone "$TESTRAIL_MILESTONE" --testrail-suite "$TESTRAIL_SUITE" --test-results-link "$BUILD_URL" "$REPORT_FILE"
 fi
