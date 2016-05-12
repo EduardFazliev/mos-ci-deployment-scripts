@@ -44,7 +44,7 @@ set_default(){
 
 ISO_NAME=`ls "$ISO_DIR"`
 ENV_NAME=MOS_CI_"$ISO_NAME"
-ISO_ID=`echo "$ISO_NAME" | cut -f3 -d-`
+ISO_ID=`echo "$ISO_NAME" | cut -f4 -d-`
 
 export ISO_PATH="$ISO_DIR"/"$ISO_NAME"
 export ENV_NAME="$ENV_NAME"
