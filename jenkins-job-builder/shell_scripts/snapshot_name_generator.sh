@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-# This script allows to deploy OpenStack environments
-# using simple configuration file
+set -x
 
 boolean(){
     eval val=\$$1
