@@ -135,7 +135,7 @@
     tox_test_name: glance
     tox_properties: '-k object_storage'
     jobs:
-      - '9.0_{name}'
+      - '9.0_tox_{name}'
 
 - project:
     name: Glance_Ceph
@@ -155,4 +155,4 @@
     tox_test_name: glance
     tox_properties: '-k object_storage'
     jobs:
-      - '9.0_{name}'
+      - '9.0_tox_{name}'
