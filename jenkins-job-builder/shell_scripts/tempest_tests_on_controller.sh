@@ -6,7 +6,7 @@ ISO_NAME=`ls "$ISO_DIR"`
 ISO_ID=`echo "$ISO_NAME" | cut -f4 -d-`
 ENV_NAME=MOS_CI_"$ISO_NAME"
 
-SNAPSHOT_NAME=`sudo dos.py "$ENV_NAME" | tail -1 | awk '{print $1}'`
+SNAPSHOT_NAME=`sudo dos.py snapshot-list "$ENV_NAME" | tail -1 | awk '{print $1}'`
 
 SNAPSHOT=`echo $SNAPSHOT_NAME | sed 's/ha_deploy_//'`
 
