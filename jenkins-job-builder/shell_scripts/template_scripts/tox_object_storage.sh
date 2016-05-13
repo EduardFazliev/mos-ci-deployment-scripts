@@ -11,7 +11,7 @@ pip install tox
 
 printenv || true
 
-tox -e {tox_test_name} -- {tox_properties} -v -E "$ENV_NAME" -S "$SNAPSHOT_NAME"
+tox -e {tox_test_name} --  -k {tox_properties} -v -E "$ENV_NAME" -S "$SNAPSHOT_NAME"
 deactivate
 
 cp "$REPORT_FILE" ../
