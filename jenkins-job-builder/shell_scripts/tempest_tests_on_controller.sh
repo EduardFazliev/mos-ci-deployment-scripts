@@ -5,12 +5,16 @@ SSH_OPTS='-o UserKnownHostsFile=/dev/null \
 ISO_NAME=`ls "$ISO_DIR"`
 ISO_ID=`echo "$ISO_NAME" | cut -f4 -d-`
 ENV_NAME=MOS_CI_"$ISO_NAME"
+
+SNAPSHOT_NAME=`sudo dos.py "$ENV_NAME" | tail -1 | awk '{print $1}'`
+
 SNAPSHOT=`echo $SNAPSHOT_NAME | sed 's/ha_deploy_//'`
 
 ##### Generate file for wrapper plugin #####
 echo "$ISO_ID"_CONF:"$SNAPSHOT" > build-name-setter.info
 
 ##### Revert snapshot for tests #####
+
 # dos.py revert-resume "$ENV_NAME" "$SNAPSHOT_NAME"
 
 ##### Generation Report Path for copying report files #####
