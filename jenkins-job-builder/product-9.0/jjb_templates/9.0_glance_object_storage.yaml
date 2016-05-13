@@ -130,7 +130,7 @@
     start_timer: "0 21 * * *"
     node: single_template
     description: Glance Swift tests
-    display_name: 9.0_Glance(Swift)_t
+    display_name: 9.0_Glance(Swift)_OS
     email-recipients: efazliev@mirantis.net
     tox_test_name: glance
     tox_properties: '-k object_storage'
@@ -150,7 +150,7 @@
     start_timer: "0 21 * * *"
     node: single_template
     description: Glance Ceph tests
-    display_name: 9.0_Glance(Ceph)_t
+    display_name: 9.0_Glance(Ceph)_OS
     email-recipients: efazliev@mirantis.net
     tox_test_name: glance
     tox_properties: '-k object_storage'

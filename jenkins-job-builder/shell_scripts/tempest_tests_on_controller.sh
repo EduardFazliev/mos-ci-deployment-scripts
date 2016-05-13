@@ -67,6 +67,10 @@ echo "scp /root/rally node-$CONTROLLER_ID:/root/rally" | \
                               -o StrictHostKeyChecking=no \
                               -T root@"$MASTER_NODE_IP"
 
+##### For Ironic #####
+EXEC_ADD_CMD="echo 'source /root/openrc && ironic node-create -d fake' | ssh -T node-$CONTROLLER_ID"
+echo "$EXEC_ADD_CMD" | sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -T root@"$MASTER_NODE_IP"
+
 ################################################
 ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
 ##### TestVM workaround 19.04.2016 #############
@@ -162,11 +166,15 @@ echo 'echo "build_timeout = 300" >> $file' >> ssh_scr.sh
 echo 'echo "storage_protocol = iSCSI" >> $file' >> ssh_scr.sh
 fi
 
+
+deployment=$(docker exec "$DOCK_ID" bash -c "rally deployment list" | awk '/tempest/{print $2}')
+docker exec "$DOCK_ID" bash -c "cd .rally/tempest/for-deployment-${deployment} && git checkout 63cb9a3718f394c9da8e0cc04b170ca2a8196ec2"
+
 if [[ "$CEPH_RADOS" == 'TRUE' ]]; then
 echo 'docker exec "$DOCK_ID" bash -c "wget https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/product-9.0/superjobs/rally-tempest/list" ' >> ssh_scr.sh
 echo 'docker exec "$DOCK_ID" bash -c "source /home/rally/openrc && rally verify start --tests-file list --concurrency 1"' >> ssh_scr.sh
 else
-echo 'docker exec "$DOCK_ID" bash -c "source /home/rally/openrc && rally verify start --system-wide --concurrency 1"' >> ssh_scr.sh
+echo 'docker exec "$DOCK_ID" bash -c "source /home/rally/openrc && rally verify start --system-wide"' >> ssh_scr.sh
 fi
 
 echo 'docker exec "$DOCK_ID" bash -c "rally verify results --json --output-file output.json" ' >> ssh_scr.sh
