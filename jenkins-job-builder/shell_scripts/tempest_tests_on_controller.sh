@@ -167,8 +167,8 @@ echo 'echo "storage_protocol = iSCSI" >> $file' >> ssh_scr.sh
 fi
 
 
-deployment=$(docker exec "$DOCK_ID" bash -c "rally deployment list" | awk '/tempest/{print $2}')
-docker exec "$DOCK_ID" bash -c "cd .rally/tempest/for-deployment-${deployment} && git checkout 63cb9a3718f394c9da8e0cc04b170ca2a8196ec2"
+echo 'deployment=$(docker exec "$DOCK_ID" bash -c "rally deployment list" | awk '\''/tempest/{print $2}'\'')' >> ssh_scr.sh
+echo 'docker exec "$DOCK_ID" bash -c "cd .rally/tempest/for-deployment-${deployment} && git checkout 63cb9a3718f394c9da8e0cc04b170ca2a8196ec2" ' >> ssh_scr.sh
 
 if [[ "$CEPH_RADOS" == 'TRUE' ]]; then
 echo 'docker exec "$DOCK_ID" bash -c "wget https://raw.githubusercontent.com/EduardFazliev/mos-ci-deployment-scripts/feature/jjb/jenkins-job-builder/product-9.0/superjobs/rally-tempest/list" ' >> ssh_scr.sh

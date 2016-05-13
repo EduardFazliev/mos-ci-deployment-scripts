@@ -153,6 +153,6 @@
     display_name: 9.0_Glance(Ceph)_OS
     email-recipients: efazliev@mirantis.net
     tox_test_name: glance
-    tox_properties: '-k object_storage'
+    tox_properties: '-k_object_storage'
     jobs:
       - '9.0_tox_{name}'
