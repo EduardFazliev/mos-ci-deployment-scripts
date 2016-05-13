@@ -123,6 +123,7 @@
     env_inject_file: env_inject_ceilometer.properties
     config_path: templates/ceilometer/default.yaml
     test_group: Ceilometer
+    tox_propertires: ''
     report_prefix: /srv/jenkins/ceilometer
     report_file: report.xml
     start_timer: "0 21 * * *"
@@ -142,6 +143,7 @@
     env_inject_file: env_inject_ironic.properties
     config_path: templates/ironic/default.yaml
     test_group: Ironic
+    tox_propertires: ''
     report_prefix: /srv/jenkins/ironic
     report_file: report.xml
     start_timer: "0 21 * * *"
@@ -150,43 +152,5 @@
     display_name: 9.0_Ironic_t
     email-recipients: efazliev@mirantis.net
     tox_test_name: ironic
-    jobs:
-      - '9.0_{name}_t'
-
-- project:
-    name: Glance_Swift
-    weight: 2
-    iso_dir: /var/www/fuelweb-iso
-    env_changer: _glance_swift
-    env_inject_file: env_inject_glance_swift.properties
-    config_path: templates/glance/swift.yaml
-    test_group: Glance(Swift)
-    report_prefix: /srv/jenkins/glance_swift/
-    report_file: report.xml
-    start_timer: "0 21 * * *"
-    node: single_template
-    description: Glance Swift tests
-    display_name: 9.0_Glance(Swift)_t
-    email-recipients: efazliev@mirantis.net
-    tox_test_name: glance
-    jobs:
-      - '9.0_{name}_t'
-
-- project:
-    name: Glance_Ceph
-    weight: 2
-    iso_dir: /var/www/fuelweb-iso
-    env_changer: _glance_ceph
-    env_inject_file: env_inject_glance_ceph.properties
-    config_path: templates/glance/ceph.yaml
-    test_group: Glance(Ceph)
-    report_prefix: /srv/jenkins/glance_ceph/
-    report_file: report.xml
-    start_timer: "0 21 * * *"
-    node: single_template
-    description: Glance Ceph tests
-    display_name: 9.0_Glance(Ceph)_t
-    email-recipients: efazliev@mirantis.net
-    tox_test_name: glance
     jobs:
       - '9.0_{name}_t'
