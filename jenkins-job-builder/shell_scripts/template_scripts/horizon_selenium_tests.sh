@@ -15,7 +15,7 @@ virtualenv venv
 pip install -U pip
 pip install -r requirements.txt -r test-requirements.txt
 
-export DASHBOARD_URL='http://10.109.4.3/horizon'
+export DASHBOARD_URL='http://10.109.4.6/horizon'
 
 printenv || true
 
