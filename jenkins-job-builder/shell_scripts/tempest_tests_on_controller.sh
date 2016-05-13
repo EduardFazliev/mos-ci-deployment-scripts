@@ -11,7 +11,7 @@ SNAPSHOT=`echo $SNAPSHOT_NAME | sed 's/ha_deploy_//'`
 echo "$ISO_ID"_CONF:"$SNAPSHOT" > build-name-setter.info
 
 ##### Revert snapshot for tests #####
-dos.py revert-resume "$ENV_NAME" "$SNAPSHOT_NAME"
+# dos.py revert-resume "$ENV_NAME" "$SNAPSHOT_NAME"
 
 ##### Generation Report Path for copying report files #####
 REPORT_PATH="$REPORT_PREFIX"/"$ENV_NAME"_"$SNAPSHOT_NAME"
