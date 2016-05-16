@@ -71,7 +71,7 @@
             properties-file: "$ENV_INJECT_PATH"
         - shell:
             #!include-raw: ../../shell_scripts/template_scripts/pytest_runner.sh
-            !include-raw: ../../shell_scripts/template_scripts/tox_based_test_job.sh
+            !include-raw: ../../shell_scripts/template_scripts/tox_based_test_runner.sh
         - inject:
             properties-file: "$ENV_INJECT_PATH"
         - shell:
