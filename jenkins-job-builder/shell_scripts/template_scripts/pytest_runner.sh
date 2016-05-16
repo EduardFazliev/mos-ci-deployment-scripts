@@ -10,9 +10,11 @@ virtualenv tests
 . tests/bin/activate
 
 pip install -U pip
-pip install -r requirements.txt
-printenv || true
-py.test {test_path} -E "$ENV_NAME" -S "$SNAPSHOT_NAME" -v
+pip install tox
+#pip install -r requirements.txt
+#printenv || true
+#py.test {test_path} -E "$ENV_NAME" -S "$SNAPSHOT_NAME" -v
+tox -e {tox_test_name} -- -v -E "$ENV_NAME" -S "$SNAPSHOT_NAME"
 
 cp "$REPORT_FILE" ../
 cp *.log ../
