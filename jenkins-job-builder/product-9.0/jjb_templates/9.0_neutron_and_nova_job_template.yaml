@@ -258,3 +258,21 @@
     tox_test_name: nova
     jobs:
       - '9.0_Neutron_{name}'
+
+- project:
+    name: NovaCeph
+    weight: 4
+    iso_dir: /var/www/fuelweb-iso
+    env_changer: _nova_ceph
+    env_inject_file: env_inject_nova_ceph.properties
+    config_path: templates/nova/ceph.yaml
+    test_group: Nova
+    start_timer: "0 1 * * *"
+    node: Slave-7777
+    description: Nova-Ceph tests
+    display_name: 9.0_Nova_Ceph
+    email-recipients: efazliev@mirantis.net
+    test_path: mos_tests/nova
+    tox_test_name: nova
+    jobs:
+      - '9.0_Neutron_{name}'
