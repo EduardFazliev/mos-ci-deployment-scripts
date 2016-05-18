@@ -7,7 +7,7 @@ virtualenv testrail
 
 git clone https://github.com/gdyuldin/testrail_reporter.git
 cd testrail_reporter
-# git checkout stable
+git checkout stable
 python setup.py install
 cd ../
 
