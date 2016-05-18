@@ -266,7 +266,7 @@
     env_changer: _nova_ceph
     env_inject_file: env_inject_nova_ceph.properties
     config_path: templates/nova/ceph.yaml
-    test_group: Nova
+    test_group: Nova(Ceph)
     start_timer: "0 1 * * *"
     node: Slave-7777
     description: Nova-Ceph tests
