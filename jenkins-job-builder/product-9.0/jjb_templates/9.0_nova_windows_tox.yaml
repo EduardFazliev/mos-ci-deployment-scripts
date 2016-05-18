@@ -1,5 +1,5 @@
 - job-template:
-    name: '9.0_Nova_{name}'
+    name: '9.0_nova_{name}'
 
     wrappers:
       - build-name:
@@ -123,7 +123,7 @@
     email-recipients: efazliev@mirantis.net
     tox_test_name: windows
     jobs:
-      - '9.0_vlan_based_{name}'
+      - '9.0_nova_{name}'
 
 - project:
     name: windows_ceph
