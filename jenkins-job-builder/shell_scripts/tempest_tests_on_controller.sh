@@ -132,10 +132,10 @@ echo 'sed -i "s|:5000|:5000/v2.0|g" /var/lib/rally-tempest-container-home-dir/op
 echo 'docker exec -u root "$DOCK_ID" sed -i "s|\#swift_operator_role = Member|swift_operator_role=SwiftOperator|g" /etc/rally/rally.conf' >> ssh_scr.sh
 echo 'docker exec "$DOCK_ID" setup-tempest' >> ssh_scr.sh
 
-if [[ "$CEPH_SKIP_TESTS" == 'TRUE' ]];
-then
-echo 'docker exec -u root "$DOCK_ID" bash -c '\''find / -name test_server_personality.py -exec sed -i "22i from tempest.lib import decorators" {} \; -exec sed  -i "54i\    @decorators.skip_because(bug=\"1467860\")" {} \; -exec sed  -i "109i\    @decorators.skip_because(bug=\"1467860\")" {} \;'\'' ' >> ssh_scr.sh
-fi
+#if [[ "$CEPH_SKIP_TESTS" == 'TRUE' ]];
+#then
+#echo 'docker exec -u root "$DOCK_ID" bash -c '\''find / -name test_server_personality.py -exec sed -i "22i from tempest.lib import decorators" {} \; -exec sed  -i "54i\    @decorators.skip_because(bug=\"1467860\")" {} \; -exec sed  -i "109i\    @decorators.skip_because(bug=\"1467860\")" {} \;'\'' ' >> ssh_scr.sh
+#fi
 
 echo 'file=`find / -name tempest.conf`' >> ssh_scr.sh
 # echo 'echo "backup = False" >> $file' >> ssh_scr.sh
