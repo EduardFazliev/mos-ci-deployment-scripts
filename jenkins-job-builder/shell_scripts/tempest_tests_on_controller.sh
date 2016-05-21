@@ -68,8 +68,10 @@ echo "scp /root/rally node-$CONTROLLER_ID:/root/rally" | \
                               -T root@"$MASTER_NODE_IP"
 
 ##### For Ironic #####
-EXEC_ADD_CMD="echo 'source /root/.openrc && ironic node-create -d fake' | ssh -T node-$CONTROLLER_ID"
+set +e
+EXEC_ADD_CMD="echo 'source /root/openrc && ironic node-create -d fake' | ssh -T node-$CONTROLLER_ID"
 echo "$EXEC_ADD_CMD" | sshpass -p 'r00tme' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -T root@"$MASTER_NODE_IP"
+set -e
 
 ################################################
 ##### !!! THIS IS TEMPORARY WORKAROUND !!! #####
